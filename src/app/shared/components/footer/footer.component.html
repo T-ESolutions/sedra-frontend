@@ -1,0 +1,47 @@
+<footer>
+  <div class="line"></div>
+  <div class="container py-5">
+    <div class="row py-5">
+      <div class="col-md-6 col-lg-4 pt-5">
+        <div class="footer-detail p-3">
+          <img [src]="footerImage" class="img-fluid" alt="childs">
+          <div class="contact-icons">
+            <ul class="d-flex">
+              <li *ngIf="ourTwitter!=''"><a [href]="ourTwitter" target="_blank"><img [src]="ourTwitterImage" alt="twitter icon"></a></li>
+              <li *ngIf="ourInstagram!=''"><a [href]="ourInstagram" target="_blank"><img [src]="ourInstagramImage" alt="instagram icon"></a></li>
+              <li *ngIf="ourFacebook!=''"><a [href]="ourFacebook" target="_blank"><img [src]="ourFacebookImage" alt="facebook icon"></a></li>
+              <li *ngIf="ourYoutube!=''"><a [href]="ourYoutube" target="_blank"><img [src]="ourYoutubeImage" alt="facebook icon"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 py-0">
+        <div class="footer-detail px-3 text-center">
+          <img [src]="ourLogo" alt="8fekra logo">
+<!--
+          <p class="py-4">9 ش محمد النادي تقاطع
+            ش مصطفى النحاس مع ش
+             مكرم عبيد مدينة نصر</p> -->
+             <p class="py-4">{{ourAddress}}</p>
+          <div class="row">
+            <a href="mailto:{{ourMail}}" target="_blank"><img [src]="ourMailImage" alt="envelope-icon"></a>
+            <a href="#" target="_blank"><img src="../../../../assets/images/icons/website-icon.png" alt="website-icon"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 pt-5">
+        <div class="footer-detail p-3">
+          <h3>عن التطبيق</h3>
+          <ul class="py-3">
+            <li class="hover" *ngFor="let page of pages" [routerLink]="['/page-details', page.id]" (click)="getPageData(page.id)">{{page.title}}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-3">
+      <!-- <p> * منظومة تعليمية تعمل على تربية طفلك بحيث يكون عبقري وموهوب من خلال مجموعة من الألعاب
+        والمنتجات المبتكرة من الولادة حتى ١٥ عام</p> -->
+        <p>{{ourMessage}}</p>
+    </div>
+  </div>
+</footer>

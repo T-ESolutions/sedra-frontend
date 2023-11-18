@@ -1,0 +1,110 @@
+<app-navbar></app-navbar>
+<section id="cart">
+  <div class="row py-5">
+    <div class="container-fluid">
+      <div class="row pb-5">
+        <div class="col-md-7">
+          <div class="cart-products-list">
+            <div class="row py-3">
+              <div class="title">
+                <h5>عربة التسوق</h5>
+              </div>
+            </div>
+            <div class="w-100 d-flex justify-content-center align-items-center">
+              <img src="assets/images/cart/shopping_cart_empty-ar.png" *ngIf="cart.cart.length == 0"
+                alt="cart empty image" class="img-fluid" style="max-width: 350px; ">
+            </div>
+            <ul>
+              <li *ngFor="let cart of cart.cart ; let index = index">
+                <div class="cart">
+                  <div class="row p-3">
+                    <div class="col-lg-3 py-3">
+                      <div class="product-image">
+                        <img [src]="cart.product.images[0].image" alt="product-image" class="img-fluid">
+                      </div>
+                    </div>
+                    <div class="col-lg-9">
+                      <div class="product-details">
+                        <div class="row">
+                          <div class="col-lg-8">
+                            <div class="desc">
+                              <h4>{{cart.product.title}}</h4>
+                              <p [innerHTML]="cart.product.description | slice:0:100">.</p>
+                              <span (click)="deleteCart(cart.id)">حذف <img
+                                  src="../../../../assets/images/icons/delete-icon.png" alt="delete icon"></span>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="btns">
+                              <span>ج.م {{cart.total | number}}</span>
+                              <div class="quantity-form">
+                                <button (click)="plusAmount(index,cart.id)"><img
+                                    src="../../../../assets/images/icons/plus-icon.png" alt="plus icon"></button>
+                                <input type="number" [(ngModel)]="cart.qty" min="1" max="100" disabled="disabled">
+                                <button (click)="minsAmount(index,cart.id)"><img
+                                    src="../../../../assets/images/icons/minus-icon.png" alt="minus icon"></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <div class="row">
+              <button routerLink="/home">استمرار التسوق</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 p-5" *ngIf="cart.cart.length != 0">
+          <div class="cart-confirm-coupon py-3 px-2">
+            <div class="row py-3 ">
+              <p>ملخص الطلب</p>
+            </div>
+            <div class="row py-3">
+              <div>
+                <p class="text-center fw-bold w-100" *ngIf="userData.discount != 0 && this.checkLogin == 'true'"> لديك
+                  خصم ثابت قيمته %{{userData.discount}} </p>
+              </div>
+              <form *ngIf="userData.discount == 0 || this.checkLogin != 'true'">
+                <div class="coupon-form">
+                  <form [formGroup]="copounForm" (ngSubmit)="submitCopounForm(copounForm)">
+                    <input type="text" placeholder="كوبون الخصم" formControlName="coupon_code">
+                    <button type="submit" [disabled]="copounForm.invalid">تأكيد</button>
+                  </form>
+                </div>
+              </form>
+            </div>
+            <div class="row py-3">
+              <div class="order-price-list">
+                <ul>
+                  <li>
+                    <span>المبلغ</span> <span>ج.م {{cart.total | number : '1.1-1'}}</span>
+                  </li>
+                  <li *ngIf="userData.shipping_free">
+                    <span>الشحن</span> <span>مجانا</span>
+                  </li>
+                  <li *ngIf="finalTotalDiscount != 0">
+                    <span>الخصم</span> <span>ج.م {{((finalTotalDiscount/100)*cart.total) | number : '1.1-1'}}</span>
+                  </li>
+                  <li>
+                    <span><strong>المبلغ الكلي</strong></span><span><strong id="total">ج.م {{finalTotalPrice | number :
+                        '1.1-1'}}</strong></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row py-3">
+              <div class="verify-order">
+                <button type="button" (click)="sendValues()" routerLink="/check-out">تأكيـــد</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

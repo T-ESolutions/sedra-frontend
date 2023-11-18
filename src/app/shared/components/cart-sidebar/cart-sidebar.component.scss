@@ -1,0 +1,97 @@
+ // cart sidebar styles
+ .offcanvas {
+  width: 330px;
+  overflow-y: auto;
+  padding-bottom: 30px;
+  .row {
+    .col-4,.col-8,.col-6 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+
+  .product-desc .row {
+    box-shadow: 0px 4px 11px rgb(0 0 0 / 15%);
+    .col-4 {
+      padding: 10px;
+      img {
+        max-width: 80px;
+      }
+    }
+
+    .col-8 {
+      padding: 10px;
+
+      p {
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+        max-width: 100%;
+      }
+    }
+  }
+
+  .all-price {
+    padding: 0;
+
+
+    .col-6 {
+      padding: 0 5px;
+      p {
+        font-size: 18px;
+
+      }
+    }
+
+    .col-6 {
+      padding: 0 5px;
+      span {
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .cart-btns{
+    .col-6 {
+      button {
+        padding: 7px 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        border:none;
+        outline: none;
+        transition: all 0.4s;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .col-6:first-of-type {
+      button {
+        background-color: transparent;
+        color: #000;
+        border: 1px solid #000;
+
+        &:hover {
+          box-shadow: 0px 4px 15px rgb(0 0 0 / 20%);
+        }
+      }
+    }
+
+    .col-6:nth-of-type(2) {
+      button {
+        color: #fff;
+        background-color: #29A4DB;
+
+        &:hover {
+          box-shadow: 0px 4px 15px rgb(0 0 0 / 20%);
+        }
+      }
+    }
+  }
+}

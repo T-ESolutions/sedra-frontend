@@ -1,0 +1,272 @@
+#orders {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background-image: url("../../../../assets/images/orders/orders_bg.png");
+  background-size: 100%;
+  background-position: top;
+  background-attachment: fixed;
+
+  .container-fluid {
+    >.row {
+      h3 {
+        color: #000;
+        font-weight: bold;
+      }
+
+      p {
+        color: #8E8E8E;
+      }
+    }
+
+    .row {
+      .no-orders {
+        background-color: #09c;
+        background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+        border-radius: 20px;
+        width: fit-content;
+        margin: auto;
+
+        h3 {
+          color: #fff;
+        }
+      }
+    }
+
+    .row:nth-of-type(2) {
+      .nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .nav-item {
+          margin: 5px;
+
+
+          .nav-link {
+            padding: 6px 60px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+            border-radius: 3px;
+            border: 2px solid #1B75B6;
+          }
+
+          .active {
+            background-color: #1B75B6;
+            color: #fff;
+          }
+        }
+      }
+
+      .tab-content {
+        margin-bottom: 50px;
+
+        .tab-pane {
+          padding: 0;
+
+          .order-card {
+            width: 100%;
+            height: 100%;
+            background-color: #F9F9F9;
+            border: 0.5px solid #000000;
+            padding: 10px 20px;
+            margin: 30px;
+
+            .row {
+              margin: 0;
+
+              .col-lg-4 {
+                .row {
+                  .col-6:first-of-type {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+
+                    p {
+                      font-weight: 500;
+                      font-size: 18px;
+                      color: #000;
+                    }
+                  }
+
+                  .col-6:nth-of-type(2) {
+                    padding: 0;
+
+                    .product-cart-image {
+                      position: relative;
+                      background-color: #ECECEC;
+                      padding: 10px;
+                      display: flex;
+                      justify-content: center;
+                      align-items: center;
+
+                      .product-alert {
+                        position: absolute;
+                        bottom: 0;
+                        left: 50%;
+                        transform: translateY(50%);
+                        padding: 3px 0px;
+                        border-radius: 5px;
+                        text-align: center;
+                        width: 130px;
+
+                        span {
+                          color: #fff;
+                          font-weight: 500;
+                          font-size: 16px;
+                        }
+                      }
+
+                      .current-alert {
+                        background-color: #2A4B8A;
+                      }
+
+                      .done-alert {
+                        background-color: #189E7E;
+                      }
+
+                      .canceled-alert {
+                        background-color: #FF2E2E;
+                      }
+                    }
+                  }
+                }
+              }
+
+              .col-lg-8 {
+                .row {
+                  height: 100%;
+
+                  .col-11 {
+                    padding: 20px 0;
+
+                    h5 {
+                      color: #000;
+                      font-weight: 600;
+                      font-size: 18px;
+                    }
+
+                    p {
+                      color: #000000;
+                      color: #333;
+                    }
+                  }
+
+                  .col-1 {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    padding: 40px 0;
+
+                    img {
+                      width: 18px;
+                      height: 30px;
+                      transition: all 0.3s;
+
+                      &:hover {
+                        transform: translatex(-5px);
+                      }
+                    }
+
+
+                  }
+                }
+              }
+            }
+          }
+
+        }
+      }
+    }
+  }
+}
+
+/* start media queres  */
+/* start small screen */
+@media screen and (max-width:576px) {
+  #orders {
+    .container-fluid {
+      .row:nth-of-type(2) {
+        .tab-content {
+          padding-right: 0 !important;
+          padding-left: 0 !important;
+
+          .tab-pane {
+            .order-card {
+              .row {
+                .col-lg-8 {
+                  .row {
+                    .col-11 {
+                      h5 {
+                        margin-top: 15px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+/* end small screen */
+/* start medium screen */
+@media screen and (min-width:577px) and (max-width:768px) {
+  #orders {
+    .container-fluid {
+      .row:nth-of-type(2) {
+        .tab-content {
+          // padding-right: 0 !important;
+          // padding-left: 0 !important;
+
+          .tab-pane {
+            .order-card {
+              .row {
+                .col-lg-8 {
+                  .row {
+                    .col-11 {
+                      h5 {
+                        margin-top: 15px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+/* end medium screen */
+/* start large screen */
+@media screen and (min-width:769px) and (max-width:992px) {
+
+}
+
+/* end large screen */
+/* start extra large screen */
+@media screen and (min-width:993px) and (max-width:1200px) {
+
+}
+
+/* end axtra large screen */
+/* start extra extra large screen */
+@media screen and (min-width:1201px) and (max-width:1400px) {}
+
+@media screen and (min-width:1400px) {
+
+}
+
+/* end extra extra large screen */
+/* end media queres*/
+

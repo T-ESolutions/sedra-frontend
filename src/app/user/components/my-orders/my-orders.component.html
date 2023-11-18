@@ -1,0 +1,108 @@
+<section id="orders">
+  <app-navbar></app-navbar>
+  <div class="container-fluid">
+    <div class="row py-5 px-3">
+      <h3>الطلبيات</h3>
+      <p>عرض سجل الطلبيات الخاصة بك</p>
+    </div>
+    <div class="row d-flex justify-content-center align-items-center my-5 p-lg-5" *ngIf="currentOrders.length == 0">
+      <div class="no-orders p-5">
+        <h3>لا توجد اى طلبيات </h3>
+      </div>
+    </div>
+    <div class="row" *ngIf="currentOrders.length > 0">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pills-current-tab" data-bs-toggle="pill" data-bs-target="#pills-current"
+            type="button" role="tab" aria-controls="pills-current" aria-selected="true">الطلبيــــات
+            الحاليـــــــة</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-previous-tab" data-bs-toggle="pill" data-bs-target="#pills-previous"
+            type="button" role="tab" aria-controls="pills-previous" aria-selected="false">الطلبيــــات
+            السابقــــة</button>
+        </li>
+      </ul>
+      <div class="tab-content p-3" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-current" role="tabpanel" aria-labelledby="pills-current-tab"
+          tabindex="0">
+          <h3 class="text-center text-muted pt-5" *ngIf="currentOrders.length == 0"> " لا توجد اى طلبيات حالية "</h3>
+          <div class="order-card mx-0" *ngFor="let order of currentOrders">
+            <div class="row pt-2 pb-3">
+              <div class="col-lg-4">
+                <div class="row">
+                  <div class="col-6">
+                    <p>تم الطلب يوم</p>
+                    <p>{{order.created_at | date: 'dd/MM/yyyy'}}</p>
+                  </div>
+                  <div class="col-6">
+                    <div class="product-cart-image">
+                      <img [src]="order.order_details[0].product_image" class="img-fluid" alt="product image">
+                      <div class="product-alert current-alert">
+                        <span>{{order.status_text}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="row">
+                  <div class="col-11">
+                    <h5>{{order.order_details[0].product_title}}</h5>
+                    <p [innerHTML]="order.order_details[0].product_description" class="pt-3"></p>
+                  </div>
+                  <div class="col-1 d-flex flex-column justify-content-between align-items-center py-0">
+                    <p style="text-align: center;">تفاصيل الطلب</p>
+                    <img class="hover" [routerLink]="['/order-details', order.id]"
+                      src="../../../../assets/images/icons/arrow-left.png" alt="arrow left">
+                    <h3 class="fw-bolder text-black-50">{{order.order_details.length}}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="pills-previous" role="tabpanel" aria-labelledby="pills-previous-tab"
+          tabindex="0">
+          <h3 class="text-center text-muted pt-5" *ngIf="previousOrders.length == 0">" لا توجد أي طلبيات سابقة "</h3>
+          <div class="order-card mx-0" *ngFor="let order of previousOrders">
+            <div class="row pt-2 pb-3">
+              <div class="col-lg-4">
+                <div class="row">
+                  <div class="col-6">
+                    <p>تم الطلب يوم</p>
+                    <p>{{order.created_at | date: 'dd/MM/yyyy'}}</p>
+
+                  </div>
+                  <div class="col-6">
+                    <div class="product-cart-image">
+                      <img [src]="order.order_details[0].product_image" class="img-fluid" alt="product image">
+                      <div class="product-alert "
+                        [class]="order.status=='delivered'?'done-alert':''|| order.status=='canceled_by_admin'?'canceled-alert':'' || order.status=='canceled_by_user'?'canceled-alert':''">
+                        <span>{{order.status_text}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="row">
+                  <div class="col-11">
+                    <h5>{{order.order_details[0].product_title}}</h5>
+                    <p [innerHTML]="order.order_details[0].product_description" class="pt-3"></p>
+                  </div>
+                  <div class="col-1 d-flex flex-column justify-content-between align-items-center py-0">
+                    <p style="text-align: center;">تفاصيل الطلب</p>
+                    <img class="hover" [routerLink]="['/order-details', order.id]"
+                      src="../../../../assets/images/icons/arrow-left.png" alt="arrow left">
+                    <h3 class="fw-bolder text-black-50">{{order.order_details.length}}</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

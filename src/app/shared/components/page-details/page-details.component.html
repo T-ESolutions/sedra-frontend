@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<section id="page-details">
+  <div class="row">
+    <div class="container">
+      <div class="row pt-5">
+        <div class="content pt-5">
+          <!-- <img [src]="page.image" [alt]="page.title"  onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'"> -->
+          <img [src]="page.image" [alt]="page.title"  onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'">
+          <h3>{{page.title}}</h3>
+          <div [innerHTML]="page.body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

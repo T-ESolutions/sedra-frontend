@@ -1,0 +1,108 @@
+<app-navbar></app-navbar>
+<section id="home">
+  <div class="slider">
+    <swiper [navigation]="true" [slidesPerView]="1" [loop]="true" [loopAdditionalSlides]="2" [loopedSlides]="2"
+      [autoplay]="{delay: 5000,disableOnInteraction: false}" class="mySwiper banner_sliders"
+      [pagination]="{ clickable: true }">
+      <ng-template swiperSlide class="banner_slider" *ngFor="let slider of sliders">
+        <div class="item">
+          <div class="background background-1">
+            <a [href]="slider.url" target="_blank"><img [src]="slider.image" alt="home slider image" onerror="this.onerror=null;this.src='../../../../assets/images/icons/loader.gif'"></a>
+          </div>
+        </div>
+      </ng-template>
+    </swiper>
+  </div>
+  <div class="categories">
+    <div class="row py-5 px-0">
+      <div class="title w-100 text-center mt-3 pt-3 px-0">
+        <h2 class="wow slideInDown" data-wow-duration="1s" data-wow-delay="0s">الأقسام</h2>
+      </div>
+    </div>
+    <div class="container py-3">
+      <div class="row">
+        <div data-wow-duration="1s" data-wow-delay="0.2s" class="col-sm-6 col-md-6 col-lg-4 p-3 wow slideInDown">
+          <div class="item text-center">
+            <div class="item-img">
+              <img [src]="all_category_image" class="img-fluid" alt="جميع المنتجات" [routerLink]="['/products', 0]"
+                onerror="this.onerror=null;this.src='../../../../assets/images/icons/loader.gif'">
+            </div>
+            <div class="item-title pt-3">
+              <h3>جميع المنتجات</h3>
+            </div>
+          </div>
+        </div>
+        <div data-wow-duration="1s" data-wow-delay="0.2s" *ngFor="let category of categories"
+          class="col-sm-6 col-md-6 col-lg-4 p-3 wow slideInRight">
+          <div class="item text-center">
+            <div class="item-img">
+              <img [src]="category.image" class="img-fluid" [alt]="category.title"
+                [routerLink]="['/products', category.id]"
+                onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'">
+            </div>
+            <div class="item-title pt-3">
+              <h3>{{category.title}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="products">
+    <div class="row py-5 px-0">
+      <div class="title w-100 text-center px-0">
+        <h2 class="wow slideInDown" data-wow-duration="1s" data-wow-delay="0s">أحدث المنتجات</h2>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row pt-3 pb-5">
+        <div class="col-sm-12 col-lg-6 p-3 wow slideInUp" data-wow-duration="1s" data-wow-delay="0.5s"
+          *ngFor="let product of products; let index = index">
+          <div class="product p-3">
+            <div class="product-images">
+              <swiper [navigation]="false" [slidesPerView]="1" [loop]="true" [loopAdditionalSlides]="2"
+                [loopedSlides]="2" [autoplay]="{delay: 5000,disableOnInteraction: false}"
+                class="mySwiper product-sliders" [pagination]="{ clickable: true }">
+                <ng-template swiperSlide class="product-slider" *ngFor="let img of product.images">
+                  <div class="product-image">
+                    <img [routerLink]="['/product-details', product.id]" [src]="img.image" class="img-fluid"
+                      alt="product image"
+                      onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'">
+                  </div>
+                </ng-template>
+              </swiper>
+            </div>
+            <div class="product-details">
+              <h4 [routerLink]="['/product-details', product.id]">{{product.title}}</h4>
+              <p class="hover" *ngIf="product.short_description.length>=100"
+                [innerHTML]="(product.short_description  | slice:0:100) + ' ... '"></p>
+              <p class="hover" *ngIf="product.short_description.length<100" [innerHTML]="product.short_description"></p>
+              <div class="categories-types">
+                <span *ngFor="let categoryTitle of product.categories">{{categoryTitle.title}}</span>
+              </div>
+            </div>
+            <div class="product-coupons ">
+              <div *ngIf="product.qty_in_cart == 0">
+                <img (click)="addToCart(product.id , 1)" data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas"
+                  aria-controls="offcanvasRight" src="../../../../assets/images/icons/shopping.png" alt="shopping icon"
+                  class="shopping-icon">
+              </div>
+              <div class="counter-amount" *ngIf="product.qty_in_cart != 0">
+                <button (click)="plusAmount(product.cart_id, index)"><i class="fa-solid fa-plus"></i></button>
+                <input type="text" [value]="product.qty_in_cart" readonly>
+                <button (click)="minsAmount(product.cart_id, index)"><i class="fa-solid fa-minus"></i></button>
+              </div>
+              <div class="d-flex">
+                <span class="d-block before-disc" *ngIf="product.discount > 0 ">{{product.price}} EGP</span>
+                <span class="d-block"><strong>{{product.price_after_discount}} EGP</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="final"></div>
+</section>
+<app-footer></app-footer>
+<app-cart-sidebar></app-cart-sidebar>

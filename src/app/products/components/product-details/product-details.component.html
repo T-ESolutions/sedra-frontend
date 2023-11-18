@@ -1,0 +1,406 @@
+<app-navbar></app-navbar>
+<section id="product-details">
+  <div class="container py-5">
+    <div class="row py-2 ">
+      <div class="col-lg-6 py-3 px-0">
+        <div class="product-images">
+          <div class="row">
+            <div class="col-3">
+              <div class="childs-photo">
+                <swiper (swiper)="thumbsSwiper = $event" [slidesPerView]="4" [direction]="'vertical'"
+                  class="mySwiper product-child-swiper">
+                  <ng-template swiperSlide class="child_slider" *ngFor="let image of producImages">
+                    <img [src]="image.image"
+                      onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'" />
+                  </ng-template>
+                </swiper>
+              </div>
+            </div>
+            <div class="col-9">
+              <div class="parent-photo p-3">
+                <swiper [slidesPerView]="1" [thumbs]="{ swiper: thumbsSwiper }" [direction]="'vertical'"
+                  class="mySwiper product-parent-swiper">
+                  <ng-template swiperSlide class="parent_slider" *ngFor="let image of producImages">
+                    <img [src]="image.image" alt="product image"
+                      onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'">
+                  </ng-template>
+                </swiper>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 p-3 p-xl-5">
+        <div class="product-detail">
+          <h3>{{product.title}}</h3>
+          <p [innerHTML]="product.short_description" class="py-1"></p>
+          <div class="price">
+            <span>ج.م {{product.price_after_discount}} </span>
+            <span *ngIf="product.discount!=0">ج.م {{product.price}} </span>
+          </div>
+          <div class="quantity" *ngIf="product.qty_in_cart != 0">
+            <p>الكمية</p>
+            <div class="quantity-form">
+              <button (click)="plusAmount(product.cart_id)"><img src="../../../../assets/images/icons/plus-icon.png"
+                  alt="plus icon"></button>
+              <input type="number" id="qtyOnCart" disabled="disabled" [(ngModel)]="product.qty_in_cart" min="1"
+                max="100">
+              <button (click)="minsAmount(product.cart_id)"><img src="../../../../assets/images/icons/minus-icon.png"
+                  alt="minus icon"></button>
+            </div>
+          </div>
+          <div class="product-btns mt-3">
+            <button (click)="addToCart() " *ngIf="product.qty_in_cart == 0" data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">أضف إلى السلة</button>
+            <button class="hover" (click)="copyUrl()"><img src="../../../../assets/images/icons/share-icon.png"
+                alt="share icon"></button>
+          </div>
+          <app-cart-sidebar></app-cart-sidebar>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="space-line">
+  </div>
+  <div class="product-video" *ngIf="finalUrl != ''">
+    <div class="content px-3">
+      <iframe width="100%" height="315" [src]="finalUrl | safe" frameborder="5" title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="reviews">
+    <div class="container">
+      <div class="row">
+        <div class="tab-pane  reviews-content" id="pills-images" role="tabpanel" aria-labelledby="images-tab">
+          <div class="reviews-content-body mt-3">
+            <div class="reviews-tabs pt-4">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link  active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#pills-desc"
+                    type="button" role="tab" aria-controls="home" aria-selected="true">
+                    <p>الوصف</p>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="detail-tab" data-bs-toggle="tab" data-bs-target="#pills-detail"
+                    type="button" role="tab" aria-controls="profile" aria-selected="false">
+                    <p>المواصفات</p>
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link    " id="comments-tab" data-bs-toggle="tab" data-bs-target="#pills-comments"
+                    type="button" role="tab" aria-controls="contact" aria-selected="false">
+                    <p> آراء العملاء </p>
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade  show active" id="pills-desc" role="tabpanel" aria-labelledby="desc-tab">
+                  <p [innerHTML]="product.description"></p>
+                </div>
+                <div class="tab-pane fade" id="pills-detail" role="tabpanel" aria-labelledby="detail-tab">
+                  <p [innerHTML]="product.attributes"></p>
+                  <!-- <ul>
+                    <li><p>الخامة</p> <div [innerHTML]="product.attributes"> </div></li>
+                    <li><p>الوزن</p> <p></p></li>
+                    <li><p>المقاس</p> <p></p></li>
+                  </ul> -->
+                </div>
+                <div class="tab-pane fade    " id="pills-comments" role="tabpanel" aria-labelledby="comments-tab">
+                  <div class="container " *ngIf="reviews.length != 0">
+                    <div class="row py-4">
+                      <div class="row product-comments p-3 my-3 py-5">
+                        <swiper [slidesPerView]="'auto'" [spaceBetween]="10" [loop]="false" [centeredSlides]="false"
+                          [autoplay]="{
+                          delay: 3000,
+                          disableOnInteraction: false
+                        }" class="swiper">
+
+                          <ng-template swiperSlide class="swiperSlide" *ngFor="let review of reviews">
+                            <img src="{{review.image}}" class="product-comment img-fluid" alt="product comment"
+                              (click)="showEnlargImg(review.image)">
+                          </ng-template>
+                        </swiper>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-8 p-3 d-none">
+                        <div class="comments">
+                          <ul *ngIf="reviews.length != 0">
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container d-none" *ngIf="reviews.length != 0">
+    <div class="row py-4">
+      <!-- <div class="col-sm-12 col-md-6 col-lg-4  px-3">
+          <div class="evaluation py-3">
+            <div class="evaluation-card text-center">
+              <h3>5.1</h3>
+              <ul class="d-flex">
+                <li><img src="../../../../assets/images/icons/gray-star.png" alt="gray star"></li>
+                <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+              </ul>
+              <p>متوسط تقييم</p>
+              <ul>
+                <li>
+                  <div class="stars-type">
+                    <span>5</span>
+                    <img src="../../../../assets/images/icons/gold-star.png" alt="gold star">
+                  </div>
+                  <div class="progress">
+                    <div class="average">
+
+                    </div>
+                  </div>
+                  <div class="average-number">
+                    <p>580</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="stars-type">
+                    <span>4</span>
+                    <img src="../../../../assets/images/icons/gold-star.png" alt="gold star">
+                  </div>
+                  <div class="progress">
+                    <div class="average">
+
+                    </div>
+                  </div>
+                  <div class="average-number">
+                    <p>400</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="stars-type">
+                    <span>3</span>
+                    <img src="../../../../assets/images/icons/gold-star.png" alt="gold star">
+                  </div>
+                  <div class="progress">
+                    <div class="average">
+
+                    </div>
+                  </div>
+                  <div class="average-number">
+                    <p>310</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="stars-type">
+                    <span>2</span>
+                    <img src="../../../../assets/images/icons/gold-star.png" alt="gold star">
+                  </div>
+                  <div class="progress">
+                    <div class="average">
+
+                    </div>
+                  </div>
+                  <div class="average-number">
+                    <p>150</p>
+                  </div>
+                </li>
+                <li>
+                  <div class="stars-type">
+                    <span>1</span>
+                    <img src="../../../../assets/images/icons/gold-star.png" alt="gold star">
+                  </div>
+                  <div class="progress">
+                    <div class="average">
+
+                    </div>
+                  </div>
+                  <div class="average-number">
+                    <p>12</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="evaluation-form my-4">
+            <form >
+              <textarea name="review" id="review" placeholder="أكتب مراجعة"  rows="3"></textarea>
+              <div class="form-btn">
+                <button type="submit"> تأكيد </button>
+              </div>
+            </form>
+          </div>
+      </div> -->
+      <!-- <h3 *ngIf="reviews.length == 0" class="text-muted text-center">لا توجد تعليقات !!</h3> -->
+      <div class="row product-comments p-3 my-3 py-5">
+        <swiper [slidesPerView]="'auto'" [spaceBetween]="10" [loop]="false" [centeredSlides]="false" [autoplay]="{
+          delay: 3000,
+          disableOnInteraction: false
+        }" class="swiper">
+
+          <ng-template swiperSlide class="swiperSlide" *ngFor="let review of reviews">
+            <img src="{{review.image}}" class="product-comment img-fluid" alt="product comment">
+          </ng-template>
+
+
+          <!-- <ng-template swiperSlide class="swiperSlide">
+            <img src="../../../../assets/images/product details/product comments/comment2.jpeg" class="product-comment img-fluid"
+              alt="product comment">
+          </ng-template>
+          <ng-template swiperSlide class="swiperSlide">
+            <img src="../../../../assets/images/product details/product comments/comment3.jpeg" class="product-comment img-fluid"
+              alt="product comment">
+          </ng-template>
+          <ng-template swiperSlide class="swiperSlide">
+            <img src="../../../../assets/images/product details/product comments/comment4.jpeg" class="product-comment img-fluid"
+              alt="product comment">
+          </ng-template>
+          <ng-template swiperSlide class="swiperSlide">
+            <img src="../../../../assets/images/product details/product comments/comment5.jpeg" class="product-comment img-fluid"
+              alt="product comment">
+          </ng-template>
+          <ng-template swiperSlide class="swiperSlide">
+            <img src="../../../../assets/images/product details/product comments/comment6.jpeg" class="product-comment img-fluid"
+              alt="product comment">
+          </ng-template>
+          <ng-template swiperSlide class="swiperSlide">
+            <img src="../../../../assets/images/product details/product comments/comment7.jpeg" class="product-comment img-fluid"
+              alt="product comment">
+          </ng-template>
+          <ng-template swiperSlide class="swiperSlide">
+            <img src="../../../../assets/images/product details/product comments/comment8.jpeg" class="product-comment img-fluid"
+              alt="product comment">
+          </ng-template> -->
+        </swiper>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-8 p-3 d-none">
+        <div class="comments">
+          <ul *ngIf="reviews.length != 0">
+            <!-- <li *ngFor="let review of reviews">
+              <div class="user-image px-3">
+                <img [src]="review.user.image" alt="user image">
+              </div>
+              <div class="user-desc px-2 py-3">
+                <h4>{{review.user.f_name}} {{review.user.l_name}}</h4>
+                <ul class="d-flex">
+                  <li><img [src]="review.rate >=1 ? '../../../../assets/images/icons/gold-star.png': '../../../../assets/images/icons/gray-star.png'" alt="gold star"></li>
+                  <li><img [src]="review.rate >=2 ? '../../../../assets/images/icons/gold-star.png': '../../../../assets/images/icons/gray-star.png'" alt="gold star"></li>
+                  <li><img [src]="review.rate >=3 ? '../../../../assets/images/icons/gold-star.png': '../../../../assets/images/icons/gray-star.png'" alt="gold star"></li>
+                  <li><img [src]="review.rate >=4 ? '../../../../assets/images/icons/gold-star.png': '../../../../assets/images/icons/gray-star.png'" alt="gold star"></li>
+                  <li><img [src]="review.rate ==5 ? '../../../../assets/images/icons/gold-star.png': '../../../../assets/images/icons/gray-star.png'" alt="gray star"></li>
+                </ul>
+                <p>{{review.comment}}</p>
+              </div>
+            </li> -->
+            <!-- <li>
+              <div class="user-image px-3">
+                <img src="../../../../assets/images/product details/user-img.png" alt="user image">
+              </div>
+              <div class="user-desc px-2 py-3">
+                <h4>احمد عليم</h4>
+                <ul class="d-flex">
+                  <li><img src="../../../../assets/images/icons/gray-star.png" alt="gray star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                </ul>
+                <p>الخامة الحقيقة حلوة جدا</p>
+              </div>
+            </li>
+            <li>
+              <div class="user-image px-3">
+                <img src="../../../../assets/images/product details/user-img.png" alt="user image">
+              </div>
+              <div class="user-desc px-2 py-3">
+                <h4>احمد عليم</h4>
+                <ul class="d-flex">
+                  <li><img src="../../../../assets/images/icons/gray-star.png" alt="gray star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                </ul>
+                <p>الخامة الحقيقة حلوة جدا</p>
+              </div>
+            </li>
+            <li>
+              <div class="user-image px-3">
+                <img src="../../../../assets/images/product details/user-img.png" alt="user image">
+              </div>
+              <div class="user-desc px-2 py-3">
+                <h4>احمد عليم</h4>
+                <ul class="d-flex">
+                  <li><img src="../../../../assets/images/icons/gray-star.png" alt="gray star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                  <li><img src="../../../../assets/images/icons/gold-star.png" alt="gold star"></li>
+                </ul>
+                <p>الخامة الحقيقة حلوة جدا</p>
+              </div>
+            </li> -->
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="horizental-line my-3"></div>
+  <div class="products">
+    <div class="container pt-3">
+      <div class="row text-center py-3">
+        <p>ربما يعجبك أيضًا </p>
+      </div>
+      <div class="row pt-3 pb-5 justify-content-center">
+        <!-- ata-wow-offset="10"  data-wow-iteration="10" -->
+        <div class="col-sm-12 col-md-6 col-lg-4 p-3" *ngFor="let related of relatedProducts">
+          <div class="product p-3">
+            <div class="product-images">
+              <swiper [navigation]="false" [slidesPerView]="1" [loop]="true" [loopAdditionalSlides]="2"
+                [loopedSlides]="2" [autoplay]="{delay: 5000,disableOnInteraction: false}"
+                class="mySwiper product-sliders" [pagination]="{ clickable: true }">
+                <ng-template swiperSlide class="product-slider" *ngFor="let img of related.images">
+                  <div class="product-image">
+                    <img [src]="img.image" class="img-fluid" alt="product image"
+                      onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'">
+                  </div>
+                </ng-template>
+              </swiper>
+            </div>
+            <div class="product-details">
+              <h4 [routerLink]="['/product-details', related.id]"
+                (click)="getProductDetails(related.id); getRelatedProducts(related.id)">{{related.title}}</h4>
+              <!-- <p [innerHTML]="related.description"></p> -->
+              <p *ngIf="related.description.length>=100" [innerHTML]="(related.description  | slice:0:50) + ' ... '">
+              </p>
+              <p *ngIf="related.description.length<100" [innerHTML]="related.description"></p>
+              <span *ngFor="let categoryTitle of related.categories">{{categoryTitle.title}}</span>
+            </div>
+            <div class="product-coupons">
+              <span class="d-block before-disc" *ngIf="related.discount!=0 ">{{related.price}} EGP</span>
+              <span class="d-block"><strong>{{related.price_after_discount}} EGGP</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>
+<!-- Large modal -->
+<div class="modal fade" id="myLargeModalLabel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+  aria-hidden="true" >
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <img [src]="slide" alt="project Image" style="padding: 5px;">
+    </div>
+  </div>
+</div>

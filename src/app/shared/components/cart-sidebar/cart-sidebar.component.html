@@ -1,0 +1,34 @@
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="row product-desc">
+    <div class="row py-2" *ngFor="let productCart of cart.cart">
+      <div class="col-4 py-0">
+        <img [src]="productCart.product.images[0].image" alt="product image in cart" class="img-fluid">
+      </div>
+      <div class="col-8 py-0">
+        <p [innerHTML]="productCart.product.title | slice:0:60" class="text-end"></p>
+        <span>({{productCart.qty}})</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row all-price mt-4">
+    <div class="col-6">
+      <p>
+        المجموع الكلي
+      </p>
+    </div>
+    <div class="col-6">
+      <span>
+        ج.م {{cart.total | number}}
+      </span>
+    </div>
+  </div>
+  <div class="row cart-btns mt-3">
+    <div class="col-6">
+      <button  data-bs-dismiss="offcanvas" aria-label="Close">استمرار التسوق</button>
+    </div>
+    <div class="col-6">
+      <button data-bs-dismiss="offcanvas" aria-label="Close" routerLink="/cart">إكمال الطلب</button>
+    </div>
+  </div>
+</div>

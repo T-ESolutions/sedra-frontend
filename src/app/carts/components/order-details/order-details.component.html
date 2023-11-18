@@ -1,0 +1,199 @@
+<section id="order-details">
+  <app-navbar></app-navbar>
+  <div class="container-fluid py-5">
+    <div class="row px-3 py-0">
+      <img src="../../../../assets/images/icons/right.png" alt="right" class="hover" routerLink="/my-orders">
+      <p>الرجوع للطلبيات</p>
+    </div>
+    <div class="row p-4">
+      <p>تم الطلب يوم 10 فبراير 2023</p>
+      <span class="mt-3"> <strong> رقم الطلب : </strong> {{order.id}} </span>
+    </div>
+
+    <div class="row px-3 py-4">
+      <div class="col-lg-9 px-3">
+        <div class="cancel-alert" id="cancelAlert">
+          <p>تم إلغاء الطلب</p>
+        </div>
+        <div class="address p-3 mb-4">
+          <div class="row d-flex align-items-center">
+            <h4>عنوان التوصيل</h4>
+            <span *ngIf="order.status == 'pending' || order.status == 'on_progress'" data-bs-toggle="modal"
+              (click)="showChangeAddressModalOnOrderDetails()">تغيير العنوان</span>
+            <!-- Modal -->
+            <div class="modal fade" id="changeAddressModalOnOrderDetails" tabindex="-1"
+              aria-labelledby="changeAddressModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header d-flex justify-content-between align-items-center w-100">
+                    <h3 class="modal-title fs-5" id="changeAddressModalLabel"><strong>حدد عنوان التسليم</strong></h3>
+                    <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body py-3">
+
+
+                    <div class="address-carts p-3 pb-0 my-2" *ngFor="let address of addresses"
+                      [class]="address.is_default == 1?'active-address':'notactive-address'">
+
+                      <div class="row">
+                        <div class="col-md-9">
+                          <img src="../../../../assets/images/icons/address-icon-black.png" alt="address-icon">
+                          <ul>
+                            <li><span>الاسم </span>
+                              <p>{{address.f_name}} {{address.l_name}}</p>
+                            </li>
+                            <li><span>العنوان </span>
+                              <p>{{address.address}} </p>
+                            </li>
+                            <li><span>الموبايل </span>
+                              <p>{{address.phone}} </p>
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-md-3 d-flex justify-content-between align-items-end flex-column">
+                          <div class="actions">
+                            <span (click)="hideChangeAddressModalOnOrderDetails()"
+                              [routerLink]="['/edit-address', address.id]">تعديل
+                              <img src="../../../../assets/images/icons/edit-black.png" alt="edit icon"></span>
+                            <span (click)="deleteAddress(address.id)"
+                              [class]="address.is_default == 1?'d-none':'d-block'">حذف <img
+                                src="../../../../assets/images/icons/delete-icon-black.png" alt="delete icon"></span>
+                          </div>
+                          <div class="input-check-address">
+                            <input class="form-check-input" (change)="changeChoosedAddress($event, address.id)"
+                              type="radio" [checked]="address.is_default == 1" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="address-carts p-3 pb-0 my-2">
+                      <div class="row d-flex justify-content-center align-items-center p-5">
+                        <div class="add-address-div">
+                          <span (click)="hideChangeAddressModalOnOrderDetails()" [routerLink]="['/address']"><i
+                              class="fa-solid fa-plus"></i></span>
+                          <p>إضافة عنوان</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer justify-content-start">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <p>{{order.address?.f_name}} {{order.address?.l_name}}</p>
+            <p>{{order.address?.address}}</p>
+            <p>{{order.address?.phone}}</p>
+          </div>
+        </div>
+        <div class="order-products p-3 mb-4">
+          <div class="row py-3">
+            <div class="col-lg-9 mb-3">
+              <div class="row p-3" *ngFor="let product of order.order_details">
+                <div class="col-md-3 p-3">
+                  <div class="order-product-image">
+                    <img [src]="product.product_image" class="img-fluid" alt="order product image">
+                  </div>
+                </div>
+                <div class="col-md-9 py-3 px-0">
+                  <div class="order-product-desc">
+                    <h4>{{product.product_title}}</h4>
+                    <p [innerHTML]="product.product_description"></p>
+                    <div class="row py-3">
+                      <span>ج.م {{product.total}}</span>
+                      <span>الكمية ({{product.qty}})</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="order-btns" id="orderBtns" *ngIf="order.status == 'pending'">
+                <div class="row pt-4">
+                  <div class="col-md-6">
+                    <span>غيرت رأيك؟</span>
+                    <button id="cancelBtn" type="button" (click)="cancelOrder(order.id)">إلغاء الطلب</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="order-state" id="orderState">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" disabled
+                    [checked]="order.status == 'pending'?true:false  || order.status == 'on_progress'?true:false || order.status == 'shipped'?true:false || order.status == 'delivered'?true:false">
+                  <!-- [checked]="order.status == 'pending'?true:false" -->
+                  <label class="form-check-label" for="flexCheckChecked"
+                    [ngClass]="order.status == 'pending'?'fullOpacity':'halfOpacity' || order.status == 'on_progress'?'fullOpacity':'halfOpacity' || order.status == 'shipped'?'fullOpacity':'halfOpacity' || order.status == 'delivered'?'fullOpacity':'halfOpacity'">
+                    تم الطلب
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked"
+                    [checked]="order.status == 'on_progress'?true:false  || order.status == 'shipped'?true:false || order.status == 'delivered'?true:false"
+                    disabled>
+                  <label class="form-check-label" for="flexCheckChecked"
+                    [ngClass]="order.status == 'on_progress'?'fullOpacity':'' || order.status == 'shipped'?'fullOpacity':'' || order.status == 'delivered'?'fullOpacity':''">
+                    جاري تجهيز الطلب
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                    [checked]="order.status == 'shipped'?true:false || order.status == 'delivered'?true:false" disabled>
+                  <label class="form-check-label" for="flexCheckDefault"
+                    [ngClass]="order.status == 'shipped'?'fullOpacity':'' || order.status == 'delivered'?'fullOpacity':''">
+                    تم الشحن
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                    [checked]="order.status == 'delivered'?true:false" disabled>
+                  <label class="form-check-label" for="flexCheckDefault"
+                    [class.fullOpacity]="order.status == 'delivered'">
+                    تم التسليم
+                  </label>
+                </div>
+                <div class="form-check" *ngIf="order.status == 'canceled_by_user'">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                    [checked]="order.status == 'canceled_by_user'?true:false" disabled>
+                  <label class="form-check-label" for="flexCheckDefault">
+                    تم الإلغاء بواسطه المستخدم
+                  </label>
+                </div>
+                <div class="form-check" *ngIf="order.status == 'canceled_by_admin'">
+                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                    [checked]="order.status == 'canceled_by_admin'?true:false" disabled>
+                  <label class="form-check-label" for="flexCheckDefault">
+                    تم الإلغاء بواسطه الأدمن
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 px-3">
+        <div class="bill p-3 pb-0">
+          <h5>فاتورة الطلب</h5>
+          <ul>
+            <li><span>المجموع الفرعي</span><span>ج.م {{order.subtotal | number : '1.1-1'}}</span></li>
+            <li><span>رسوم الشحن</span><span *ngIf="order.shipping_cost == 0 ">مجانا</span> <span
+                *ngIf="order.shipping_cost != 0 ">ج.م {{order.shipping_cost | number : '1.1-1'}}</span></li>
+            <li><span>الخصم</span><span>ج.م {{order.discount }}</span></li>
+
+            <li><span><strong>المجموع</strong></span><span><strong>ج.م {{order.total | number :
+                  '1.1-1'}}</strong></span></li>
+          </ul>
+        </div>
+        <div class="payment-way p-3">
+          <h5>طريقة الدفع</h5>
+          <p>{{orderPaymentType}}</p>
+        </div>
+        <div class="payment-way p-3 mt-3">
+          <h5> الملاحظات</h5>
+          <p>{{orderNotes}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

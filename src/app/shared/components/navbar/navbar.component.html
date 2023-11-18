@@ -1,0 +1,419 @@
+<nav class="navbar navbar-expand-lg py-0">
+  <div class="container-fluid">
+    <a class="navbar-brand hover" routerLink="home"><img src="../../../../assets/images/logos/sedra-logo.png"
+        alt="sedra"></a>
+    <button type="button" id="canvas" (click)="openSideBar()">
+      <span><i class="fa-solid fa-bars"></i></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">
+            <img src="../../../../assets/images/icons/home-icon.png" alt="home-icon">
+            <p>الصفحة الرئيسية</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart">
+            <img src="../../../../assets/images/icons/cart-icon.png" alt="cart-icon">
+            <span *ngIf="cartLength > 0" class="cart-length"> {{cartLength}} </span>
+            <p>عربة التسوق</p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="checkLogin == 'false'">
+          <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal">
+            <img src="../../../../assets/images/icons/profile-icon.png" alt="login-icon">
+            <p>تسجيل الدخول</p>
+          </a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="checkLogin == 'true'">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../../../../assets/images/icons/profile-icon.png" alt="login-icon">
+            <p>حسابى</p>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/my-orders">
+                <img src="../../../../assets/images/icons/orders-icon.png" alt="orders-icon">
+                <span>الطلبيات</span>
+              </a></li>
+            <li><a class="dropdown-item" routerLink="/address">
+                <img src="../../../../assets/images/icons/location-icon.png" alt="location-icon">
+                <span>العناوين</span>
+              </a></li>
+            <li><a class="dropdown-item" routerLink="/profile">
+                <img src="../../../../assets/images/icons/user-image-icon.png" alt="user-image-icon">
+                <span>حسابى</span>
+              </a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" (click)="logOut()">
+                <img src="../../../../assets/images/icons/logout-icon.png" alt="logout-icon">
+                <span>تسجيل خروج</span>
+              </a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="home-sidebar" id="homeSidebar">
+  <div class="row p-2 text-start">
+    <span class="close-btn" (click)="closeSideBar()"><i class="fa-solid fa-xmark"></i></span>
+  </div>
+  <div class="row">
+    <ul>
+      <li><a class="hover" (click)="closeSideBar()" routerLink="/home"><img
+            src="../../../../assets/images/icons/home-icon.png" alt="home-icon">
+          <p>الصفحة الرئيسية</p>
+        </a></li>
+      <li><a class="hover" (click)="closeSideBar()" routerLink="/cart">
+        <img
+            src="../../../../assets/images/icons/cart-icon.png" alt="home-icon">
+          <p >  عربة التسوق  <span *ngIf="cartLength > 0" class="cart-length text-light fw-bold "> ( {{cartLength}} ) </span> </p>
+        </a></li>
+      <li *ngIf="checkLogin == 'false'"><a class="hover" (click)="closeSideBar()" data-bs-toggle="modal"
+          data-bs-target="#loginModal"><img src="../../../../assets/images/icons/profile-icon.png" alt="home-icon">
+          <p>تسجيل الدخول</p>
+        </a></li>
+      <li class="nav-item dropdown" *ngIf="checkLogin == 'true'">
+        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../../../../assets/images/icons/profile-icon.png" alt="login-icon">
+          <p>حسابى</p>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="closeSideBar()" routerLink="/my-orders">
+              <img src="../../../../assets/images/icons/orders-icon.png" alt="orders-icon">
+              <span>الطلبيات</span>
+            </a></li>
+          <li><a class="dropdown-item" (click)="closeSideBar()" routerLink="/address">
+              <img src="../../../../assets/images/icons/location-icon.png" alt="location-icon">
+              <span>العناوين</span>
+            </a></li>
+          <li><a class="dropdown-item" (click)="closeSideBar()" routerLink="/profile">
+              <img src="../../../../assets/images/icons/user-image-icon.png" alt="user-image-icon">
+              <span>حسابى</span>
+            </a></li>
+          <li>
+            <hr class="dropdown-divider">
+          </li>
+          <li><a class="dropdown-item" (click)="logOut();closeSideBar()">
+              <img src="../../../../assets/images/icons/logout-icon.png" alt="logout-icon">
+              <span>تسجيل خروج</span>
+            </a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<!-- login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body">
+        <h2>أهلًا بيك</h2>
+        <h3>تسجيل الدخول إلى حسابك</h3>
+        <h5> ليس لديك حساب؟ <span data-bs-toggle="modal" data-bs-target="#signupModal"> <strong> سجل الآن </strong></span></h5>
+        <form [formGroup]="loginForm" (ngSubmit)="submitLoginForm(loginForm)">
+          <div class="form-group">
+            <label for="email"> البريد الإلكتروني أو رقم الهاتف </label>
+            <input type="text" name="email" formControlName="email" autocomplete="off"
+              [class.is-valid]="loginForm.get('email')?.valid && loginForm.get('email')?.touched"
+              [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+              class="form-control">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              <p *ngIf="loginForm.get('email')?.errors?.['required']">يجب إدخال البريد الإلكتروني</p>
+              <p *ngIf="loginForm.get('email')?.errors?.['email']">بريد إلكتروني غير صحيح</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password"> كلمة السر </label>
+            <div class="pass-input-field">
+              <input [type]="changeType?'password':'text'" name="password" formControlName="password"
+                autocomplete="off" class="form-control"
+                [class.is-valid]="loginForm.get('password')?.valid && loginForm.get('password')?.touched"
+                [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                type="password">
+              <!-- to show or hide password -->
+              <span class="hover mx-3" (click)="viewPassword()" id="view-pass"><i
+                  [ngClass]="visible?'fa fa-eye-slash':'fa fa-eye'" ></i></span>
+            </div>
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              <p *ngIf="loginForm.get('password')?.errors?.['required']">يجب إدخال كلمة السر</p>
+              <p *ngIf="loginForm.get('password')?.errors?.['pattern']">كلمة السر غير صحيحة</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <a data-bs-toggle="modal" data-bs-target="#forgetPassModal">
+              <p>نسيت كلمة السر؟</p>
+            </a>
+            <div class="form-divider"></div>
+            <button type="submit">تسجيل الدخول</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- signup Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3">
+        <h3>إنشاء حساب</h3>
+        <h5> هل لديك حساب بالفعل؟ <span data-bs-toggle="modal" data-bs-target="#loginModal"> تسجيل الدخول </span></h5>
+        <form [formGroup]="signupForm" (ngSubmit)="submitSignupForm(signupForm)">
+          <div class="form-group">
+            <label for="f_name" class="required-input"> الإسم  </label>
+            <input type="text" name="f_name" formControlName="f_name" autocomplete="off" class="form-control"
+            [class.is-valid]="signupForm.get('f_name')?.valid && signupForm.get('f_name')?.touched"
+            [class.is-invalid]="signupForm.get('f_name')?.invalid && signupForm.get('f_name')?.touched">
+          </div>
+          <div class="alert alert-danger mt-2 mx-2 p-2"
+          *ngIf="signupForm.get('f_name')?.invalid && signupForm.get('f_name')?.touched">
+          <p *ngIf="signupForm.get('f_name')?.errors?.['required']">
+           لا يجب ان يكون فارغا</p>
+          <p *ngIf="signupForm.get('f_name')?.errors?.['minlength']">
+            الحد الادنى لعدد الحروف هو  3 عدد ما تم ادخاله هو  {{signupForm.value.f_name.length}}</p>
+          <p *ngIf="signupForm.get('f_name')?.errors?.['maxlength']">
+            الحد الاقصى لعدد الحروف هو  30 عدد ما تم ادخاله هو  {{signupForm.value.f_name.length}}</p>
+        </div>
+          <!-- <div class="form-group">
+            <label for="l_name" class="required-input">  اسم العائلة </label>
+            <input type="text" name="l_name" formControlName="l_name" id="l_name" autocomplete="off" class="form-control" [class.is-valid]="signupForm.get('l_name')?.valid && signupForm.get('l_name')?.touched"
+            [class.is-invalid]="signupForm.get('l_name')?.invalid && signupForm.get('l_name')?.touched">
+          </div>
+          <div class="alert alert-danger mt-2 mx-2 p-2"
+          *ngIf="signupForm.get('l_name')?.invalid && signupForm.get('l_name')?.touched">
+          <p *ngIf="signupForm.get('l_name')?.errors?.['required']">
+           لا يجب ان يكون فارغا</p>
+          <p *ngIf="signupForm.get('l_name')?.errors?.['minlength']">
+            الحد الادنى لعدد الحروف هو  3 عدد ما تم ادخاله هو  {{signupForm.value.l_name.length}}</p>
+          <p *ngIf="signupForm.get('l_name')?.errors?.['maxlength']">
+            الحد الاقصى لعدد الحروف هو  30 عدد ما تم ادخاله هو  {{signupForm.value.l_name.length}}</p>
+        </div> -->
+          <div class="form-group">
+            <label for="country_id" class="required-input"> المحافظة </label>
+              <select name="country_id" class="form-select mt-2" aria-label="Default select example" formControlName="country_id" [class.is-valid]="signupForm.get('country_id')?.valid && signupForm.get('country_id')?.touched"
+              [class.is-invalid]="signupForm.get('country_id')?.invalid && signupForm.get('country_id')?.touched">
+                <option selected disabled></option>
+                <option value="{{country.id}}" *ngFor="let country of countries">{{country.title}}</option>
+              </select>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="required-input"> رقم الهاتف </label>
+            <input type="text" name="phone" formControlName="phone" autocomplete="off"
+              class="form-control" [class.is-valid]="signupForm.get('phone')?.valid && signupForm.get('phone')?.touched"
+              [class.is-invalid]="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched">
+              <div class="alert alert-danger mt-2 p-2"
+              *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched">
+              <p>يجب ادخال رقم هاتف صحيح </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="whats_app"> رقم الواتساب </label>
+            <input type="text" name="whats_app" formControlName="whats_app" id="whats_app" autocomplete="off"
+              class="form-control" [class.is-valid]="signupForm.get('whats_app')?.valid && signupForm.get('whats_app')?.touched"
+              [class.is-invalid]="signupForm.get('whats_app')?.invalid && signupForm.get('whats_app')?.touched">
+              <div class="alert alert-danger mt-2 p-2"
+              *ngIf="signupForm.get('whats_app')?.invalid && signupForm.get('whats_app')?.touched">
+              <p>يجب ادخال رقم هاتف صحيح </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="required-input"> البريد الإلكتروني </label>
+            <input type="email" name="email" formControlName="email" autocomplete="off"
+              [class.is-valid]="signupForm.get('email')?.valid && signupForm.get('email')?.touched"
+              [class.is-invalid]="signupForm.get('email')?.invalid && signupForm.get('email')?.touched"
+              class="form-control">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+              <p *ngIf="signupForm.get('email')?.errors?.['required']">يجب إدخال البريد الإلكتروني</p>
+              <p *ngIf="signupForm.get('email')?.errors?.['email']">بريد إلكتروني غير صحيح</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password" class="required-input"> كلمة السر </label>
+            <div class="pass-input-field">
+              <input [type]="changeType?'password':'text'" name="password" formControlName="password"
+               autocomplete="off" class="form-control"
+                [class.is-valid]="signupForm.get('password')?.valid && signupForm.get('password')?.touched"
+                [class.is-invalid]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
+                type="password">
+              <!-- to show or hide password -->
+              <span (click)="viewPassword()" id="view-pass"><i
+                  [ngClass]="visible?'fa fa-eye-slash':'fa fa-eye'"></i></span>
+            </div>
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+              <p *ngIf="signupForm.get('password')?.errors?.['required']">يجب إدخال كلمة السر</p>
+              <p *ngIf="signupForm.get('password')?.errors?.['pattern']">كلمة السر غير صحيحة</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit">إنشاء حساب</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- verify signup Modal -->
+<!-- <div class="modal fade" id="signupVerifyModal" tabindex="-1" aria-labelledby="signupVerifyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كود الحساب</h3>
+        <h5>أكد كود حسابك اللي هنبعتهولك</h5>
+        <form [formGroup]="verifySignUpForm" (ngSubmit)="submitVerifySignUpForm(verifySignUpForm)">
+          <div class="group  my-2">
+            <div class="row d-flex justify-content-between  w-100" dir="ltr">
+              <input type="text" autofocus="true" min="0" max="9" maxlength="1" #txt1
+                (keyup)="move($event , '' , txt1 , txt2)" formControlName="code1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #txt2 (keyup)="move($event , txt1 , txt2 , txt3)"
+                formControlName="code2" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #txt3 (keyup)="move($event , txt2 , txt3 , txt4)"
+                formControlName="code3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #txt4 (keyup)="move($event , txt3 , txt4 , '')"
+                formControlName="code4" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="verifySignUpForm.invalid">تأكيد</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- forget password Modal -->
+<div class="modal fade" id="forgetPassModal" tabindex="-1" aria-labelledby="forgetPassModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3">
+        <h3>نسيت كلمة السر؟</h3>
+        <h5>اكتب ايميلك وهنبعتلك عليه رابط عشان تغير كلمة السر</h5>
+        <form [formGroup]="forgetPassForm" (ngSubmit)="submitForgetPassForm(forgetPassForm)">
+          <div class="form-group">
+            <label for="Email"> البريد الإلكتروني </label>
+            <input type="email" name="Email" formControlName="email" autocomplete="off"
+              [class.is-valid]="forgetPassForm.get('email')?.valid && forgetPassForm.get('email')?.touched"
+              [class.is-invalid]="forgetPassForm.get('email')?.invalid && forgetPassForm.get('email')?.touched"
+              class="form-control">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="forgetPassForm.get('email')?.invalid && forgetPassForm.get('email')?.touched">
+              <p *ngIf="forgetPassForm.get('email')?.errors?.['required']">يجب إدخال البريد الإلكتروني</p>
+              <p *ngIf="forgetPassForm.get('email')?.errors?.['email']">بريد إلكترونى غير صحيح</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="forgetPassForm.invalid">إرسال الكود</button>
+            <!-- [disabled]="forgetPassForm.invalid" -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- verify forget pass Modal -->
+<div class="modal fade" id="forgetPassVerifyModal" tabindex="-1" aria-labelledby="forgetPassVerifyModalLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كود الحساب</h3>
+        <h5>أكد كود حسابك اللي هنبعتهولك</h5>
+        <form [formGroup]="verifyForgetPassForm" (ngSubmit)="submitVerifyForgetPassForm(verifyForgetPassForm)">
+          <div class="group  my-2">
+            <div class="row d-flex justify-content-between  w-100" dir="ltr">
+              <input type="text" autofocus="true" min="0" max="9"  #text1
+                (keyup)="move($event , '' , text1 , text2)" formControlName="code1" autofocus maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text2 (keyup)="move($event , text1 , text2 , text3)"
+                formControlName="code2" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text3 (keyup)="move($event , text2 , text3 , text4)"
+                formControlName="code3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text4 (keyup)="move($event , text3 , text4 , '')"
+                formControlName="code4" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            </div>
+          </div>
+            <p class="resend-code" (click)="resendCode()">إعادة ارسال الكود</p>
+          <div class="form-group">
+            <button type="submit" [disabled]="verifyForgetPassForm.invalid">تأكيد</button>
+            <!-- [disabled]="forgetPassForm.invalid" -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- change password Modal -->
+<div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="changePassModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كلمة المرور الجديدة</h3>
+        <h5>ادخل كلمة المرور الجديدة الخاصة بيك</h5>
+        <form [formGroup]="changePassForm" (ngSubmit)="submitChangePassForm(changePassForm)">
+          <div class="form-group">
+            <input type="text" placeholder="كلمة المرور الجديدة " formControlName="password"
+              autocomplete="off" class="form-control"
+              [class.is-valid]="changePassForm.get('password')?.valid && changePassForm.get('password')?.touched"
+              [class.is-invalid]="changePassForm.get('password')?.invalid && changePassForm.get('password')?.touched">
+              <div class="alert alert-danger mt-2 p-2"
+              *ngIf="changePassForm.get('password')?.invalid && changePassForm.get('password')?.touched">
+              <p *ngIf="changePassForm.get('password')?.errors?.['required']">لا يجب ان يكون فارغا </p>
+              <p *ngIf="changePassForm.get('password')?.errors?.['minlength']">
+                الحد الادنى لعدد الحروف هو  6 عدد ما تم ادخاله هو  {{changePassForm.value.password.length}}</p>
+              <p *ngIf="changePassForm.get('password')?.errors?.['maxlength']">
+                الحد الاقصى لعدد الحروف هو  20 عدد ما تم ادخاله هو  {{changePassForm.value.password.length}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="تأكيد كلمة المرور الجديدة" formControlName="password_confirmation"
+              autocomplete="off" class="form-control"
+              [class.is-valid]="changePassForm.get('password_confirmation')?.valid && changePassForm.get('password_confirmation')?.touched"
+              [class.is-invalid]="changePassForm.get('password_confirmation')?.invalid && changePassForm.get('password_confirmation')?.touched">
+              <div class="alert alert-danger mt-2 p-2"
+              *ngIf="changePassForm.get('password_confirmation')?.invalid && changePassForm.get('password_confirmation')?.touched">
+              <p *ngIf="changePassForm.get('password_confirmation')?.errors?.['required']">لا يجب ان يكون فارغا </p>
+              <p *ngIf="changePassForm.get('password_confirmation')?.errors?.['minlength']">
+                الحد الادنى لعدد الحروف هو  6 عدد ما تم ادخاله هو  {{changePassForm.value.password_confirmation.length}}</p>
+              <p *ngIf="changePassForm.get('password_confirmation')?.errors?.['maxlength']">
+                الحد الاقصى لعدد الحروف هو  20 عدد ما تم ادخاله هو  {{changePassForm.value.password_confirmation.length}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="changePassForm.invalid">تأكيد</button>
+            <!-- [disabled]="forgetPassForm.invalid" -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

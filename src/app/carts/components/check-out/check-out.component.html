@@ -1,0 +1,292 @@
+<section id="checkOut">
+  <app-navbar></app-navbar>
+
+  <div class="container-fluid py-5 px-3">
+    <div class="row py-5 mb-5">
+      <div class="col-md-8 p-2">
+        <h4 *ngIf=" this.checkLogin == 'true'">عنوان الشحن<img src="../../../../assets/images/icons/address-icon.png"
+            alt="address icon"></h4>
+        <div class="row mb-4" *ngIf="this.basicAddress.id == 0">
+          <div *ngIf=" this.checkLogin == 'true'">
+            <div class="address-alert p-3">
+              <div class="row">
+                <div class="col-md-8 py-3">
+                  <p>يجب إضافة عنوان الشحن اولآ قبل تأكيد الطلب</p>
+                </div>
+                <div class="col-md-4 justify-content-md-center align-items-md-center py-3">
+                  <button routerLink="/address">إضافة عنوان جديد</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4" *ngIf="basicAddress.id != 0">
+          <div class="user-address  p-3">
+            <div class="row">
+              <div class="col-md-8 py-3">
+                <div class="row">
+                  <p>{{basicAddress.f_name}} {{basicAddress.l_name}}</p>
+                  <p>{{basicAddress.address}}</p>
+                  <p>{{basicAddress.phone}}</p>
+                </div>
+              </div>
+              <div class="col-md-4 d-flex justify-content-end align-items-start text-primary py-3">
+                <span class="hover" data-bs-toggle="modal" (click)="showChangeAddressModal()">تغيير العنوان </span>
+                <!-- routerLink="/address" -->
+                <!-- -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <h4 *ngIf="checkLogin == 'false'"> اختر المحافظه</h4>
+        <div class="row mb-4" *ngIf="checkLogin == 'false'">
+          <select name="country_id" class="form-select mt-2 hover" aria-label="Default select example"
+            (change)="selectCountry($event)">
+            <option selected="true" selected disabled>اختر المحافظة...</option>
+            <option value="{{country.id}}" *ngFor="let country of countries">{{country.title}}</option>
+          </select>
+        </div>
+
+        <h4>طريقة الدفع</h4>
+        <div class="row mb-4">
+          <div class="pay-card p-4" id="payCard">
+            <div class="row py-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" value="cash" id="cashCheck" name="payCheck" checked>
+                <label class="form-check-label" for="cashCheck">
+                  كاش عند الاستلام
+                </label>
+              </div>
+              <img src="../../../../assets/images/orders/cash_image.png" alt="cash image">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="mb-3">
+            <label for="orderNotes" class="form-label">الملاحظات</label>
+            <textarea class="form-control" id="orderNotes" rows="5" style="resize: none;" name="user-notes"
+              (keyup)="sendNoteValue($event)"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 p-2">
+        <h4>راجع طلبك</h4>
+        <div class="row">
+          <div class="review-card p-3 pb-5" *ngFor="let cart of cart.cart ; let index = index">
+            <img [src]="cart.product.images[0].image" alt="review card image">
+            <div class="detail">
+              <p>{{cart.product.title}}</p>
+              <span class="mx-3">ج.م {{cart.product.price_after_discount | number : '1.1-1'}}</span>
+              <span>( {{cart.qty}} )</span>
+            </div>
+          </div>
+          <div class="confirm-review-card p-3 pb-5">
+            <ul>
+              <li>
+                <span>المبلغ</span> <span>ج.م {{cartTotal | number : '1.1-1'}}</span>
+              </li>
+              <li *ngIf="finalTotalShipping != null">
+                <span>الشحن</span> <span *ngIf="finalTotalShipping == 0">مجانا</span> <span
+                  *ngIf="finalTotalShipping!=0">ج.م {{finalTotalShipping | number : '1.1-1'}}</span>
+              </li>
+              <li *ngIf="country_shipping_cost!=0 && checkLogin == 'false'">
+                <span>الشحن</span> <span>ج.م {{country_shipping_cost | number : '1.1-1'}}</span>
+              </li>
+              <li *ngIf="finalTotalDiscount != 0">
+                <span>الخصم</span> <span>ج.م {{((finalTotalDiscount/100)*cartTotal) | number : '1.1-1'}}</span>
+              </li>
+              <li>
+                <span><strong>المبلغ الكلي</strong></span><span><strong id="total">ج.م {{finalTotalPrice | number :
+                    '1.1-1'}}</strong></span>
+              </li>
+            </ul>
+
+            <button type="button" (click)="placeOrder()">تأكيـــد</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="changeAddressModal" tabindex="-1" aria-labelledby="changeAddressModalLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-between align-items-center w-100">
+          <h3 class="modal-title fs-5" id="changeAddressModalLabel"><strong>حدد عنوان التسليم</strong></h3>
+          <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-3">
+
+
+          <div class="address p-3 pb-0 my-2" *ngFor="let address of addresses"
+            [class]="address.id == basicAddress.id?'active-address':'notactive-address'">
+            <div class="row">
+              <div class="col-md-9">
+                <img src="../../../../assets/images/icons/address-icon-black.png" alt="address-icon">
+                <ul>
+                  <li><span>الاسم </span>
+                    <p>{{address.f_name}} {{address.l_name}}</p>
+                  </li>
+                  <li><span>العنوان </span>
+                    <p>{{address.address}} </p>
+                  </li>
+                  <li><span>الموبايل </span>
+                    <p>{{address.phone}} </p>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-md-3 d-flex justify-content-between align-items-end flex-column">
+                <div class="actions">
+                  <span (click)="hideChangeAddressModal()" [routerLink]="['/edit-address', address.id]">تعديل <img
+                      src="../../../../assets/images/icons/edit-black.png" alt="edit icon"></span>
+                  <span (click)="deleteAddress(address.id)"
+                    [class]="address.id == basicAddress.id?'d-none':'d-block'">حذف <img
+                      src="../../../../assets/images/icons/delete-icon-black.png" alt="delete icon"></span>
+                </div>
+                <div class="input-check-address">
+                  <input class="form-check-input" (change)="changeChoosedAddress($event, address.id)" type="radio"
+                    [checked]="address.id == basicAddress.id" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="address p-3 pb-0 my-2">
+            <div class="row d-flex justify-content-center align-items-center p-5">
+              <div class="add-address-div">
+                <span (click)="hideChangeAddressModal()" [routerLink]="['/address']"><i
+                    class="fa-solid fa-plus"></i></span>
+                <p>إضافة عنوان</p>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- <div class="address p-3 pb-0 my-2">
+          <div class="row">
+            <div class="col-md-9">
+              <img src="../../../../assets/images/icons/address-icon-black.png" alt="address-icon">
+              <ul>
+                <li><span>الاسم </span> <p>أحمد عليم</p></li>
+                <li><span>العنوان </span> <p>10 ش عبدالفتاح فضل الله شبرا مصر </p></li>
+                <li><span>الموبايل </span> <p>0100251454555+ </p></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <div class="actions">
+                <span>تعديل <img src="../../../../assets/images/icons/edit-black.png" alt="edit icon"></span>
+                <span>حذف <img src="../../../../assets/images/icons/delete-icon-black.png" alt="delete icon"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="address p-3 pb-0 my-2">
+          <div class="row">
+            <div class="col-md-9">
+              <img src="../../../../assets/images/icons/address-icon-black.png" alt="address-icon">
+              <ul>
+                <li><span>الاسم </span> <p>أحمد عليم</p></li>
+                <li><span>العنوان </span> <p>10 ش عبدالفتاح فضل الله شبرا مصر </p></li>
+                <li><span>الموبايل </span> <p>0100251454555+ </p></li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <div class="actions">
+                <span>تعديل <img src="../../../../assets/images/icons/edit-black.png" alt="edit icon"></span>
+                <span>حذف <img src="../../../../assets/images/icons/delete-icon-black.png" alt="delete icon"></span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
+
+        </div>
+        <div class="modal-footer justify-content-start">
+          <!-- <button type="button" class="btn btn-primary"  data-bs-dismiss="modal"> اضافة عنوان </button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="chooseStateModal" tabindex="-1" aria-labelledby="chooseStateModal" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+      <div class="modal-content">
+        <div class="modal-header d-flex justify-content-between align-items-center">
+          <h3 class="modal-title fs-5 text-center mx-auto" id="changeAddressModalLabel"><strong> اتمام عملية
+              الشراء</strong></h3>
+          <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-3">
+          <div class="row state-checker">
+            <div class="col-6">
+              <button class="btn" (click)="showVisitorModal()">الاستمرار كزائر</button>
+              <p>( لاستكمال طلبك بشكل سريع دون إنشاء حساب جديد )</p>
+            </div>
+            <div class="col-6">
+              <button class="btn" (click)="showLoginModal()"> تسجبل الدخول</button>
+              <p>( يمكنك من خلاله متابعة طلباتك الحالية والسابقة )</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- visitor Modal -->
+  <div class="modal fade" id="visitorModal" tabindex="-1" aria-labelledby="visitorModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+            data-bs-dismiss="modal" aria-label="Close">
+        </div>
+        <div class="modal-body pt-3">
+          <h3> بيانات الزائر</h3>
+          <form [formGroup]="visitorForm" (ngSubmit)="submitVisitorForm(visitorForm)">
+            <div class="form-group">
+              <label for="f_name" class="required-input"> الإسم </label>
+              <input type="text" name="f_name" formControlName="f_name" autocomplete="off" class="form-control"
+                [class.is-valid]="visitorForm.get('f_name')?.valid && visitorForm.get('f_name')?.touched"
+                [class.is-invalid]="visitorForm.get('f_name')?.invalid && visitorForm.get('f_name')?.touched">
+            </div>
+            <div class="alert alert-danger mt-2 mx-2 p-2"
+              *ngIf="visitorForm.get('f_name')?.invalid && visitorForm.get('f_name')?.touched">
+              <p *ngIf="visitorForm.get('f_name')?.errors?.['required']">
+                لا يجب ان يكون فارغا</p>
+              <p *ngIf="visitorForm.get('f_name')?.errors?.['minlength']">
+                الحد الادنى لعدد الحروف هو 3 عدد ما تم ادخاله هو {{visitorForm.value.f_name.length}}</p>
+              <p *ngIf="visitorForm.get('f_name')?.errors?.['maxlength']">
+                الحد الاقصى لعدد الحروف هو 30 عدد ما تم ادخاله هو {{visitorForm.value.f_name.length}}</p>
+            </div>
+
+            <div class="form-group">
+              <label for="phone" class="required-input"> رقم الهاتف </label>
+              <input type="text" name="phone" formControlName="phone" autocomplete="off" class="form-control"
+                [class.is-valid]="visitorForm.get('phone')?.valid && visitorForm.get('phone')?.touched"
+                [class.is-invalid]="visitorForm.get('phone')?.invalid && visitorForm.get('phone')?.touched">
+              <div class="alert alert-danger mt-2 p-2"
+                *ngIf="visitorForm.get('phone')?.invalid && visitorForm.get('phone')?.touched">
+                <p>يجب ادخال رقم هاتف صحيح </p>
+              </div>
+            </div>
+            <div class="form-group ">
+              <label for="visitorAddress" class="required-input mb-2"> العنوان </label>
+              <textarea class="form-control border-0 " id="visitorAddress" rows="3" style="resize: none;"
+                formControlName="address" name="visitorAddress"></textarea>
+            </div>
+            <div class="form-group">
+              <button type="submit">إرسال</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

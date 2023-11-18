@@ -1,0 +1,80 @@
+<app-navbar></app-navbar>
+<section id="products">
+  <header>
+    <div class="all-categories">
+      <p (click)="getAllCategoryProducts()" [class.activated]="categoryId == 0">جميع المنتجات</p>
+    </div>
+    <ul>
+      <!-- class="active" -->
+      <li *ngFor="let category of categories" [class.activated]="category.selected == 1">
+        <p (click)="getProductsByCategory(category.id)">{{category.title}}</p>
+      </li>
+    </ul>
+    <!-- swiper ul to responsive mobile -->
+    <div class="ul-links-responsive">
+      <swiper [navigation]="false" [slidesPerView]="'auto'" class="mySwiper ">
+        <ng-template swiperSlide class="link-swiper" *ngFor="let category of categories">
+          <p (click)="getProductsByCategory(category.id)" [class.activated]="category.selected == 1">{{category.title}}
+          </p>
+        </ng-template>
+      </swiper>
+    </div>
+  </header>
+  <div class="products">
+    <div class="container pt-3">
+      <div class="row pt-3 pb-5">
+        <div class="col-12 py-5 text-center my-5" *ngIf="products.length === 0">
+          <h4>هذا القسم لا يحتوى على اى منتجات </h4>
+        </div>
+        <!-- ata-wow-offset="10"  data-wow-iteration="10" -->
+        <div class="col-sm-12 col-lg-6 p-3" *ngFor="let product of products; let index = index">
+          <div class="product p-3">
+            <div class="product-images">
+              <swiper [navigation]="false" [slidesPerView]="1" [loop]="true" [loopAdditionalSlides]="2"
+                [loopedSlides]="2" [autoplay]="{delay: 5000,disableOnInteraction: false}"
+                class="mySwiper product-sliders" [pagination]="{ clickable: true }">
+                <ng-template swiperSlide class="product-slider" *ngFor="let img of product.images">
+                  <div class="product-image">
+                    <img [routerLink]="['/product-details', product.id]" [src]="img.image" class="img-fluid"
+                      alt="product image"
+                      onerror="this.onerror=null;this.src='../../../../assets/images/ellipses/onload-image.gif'">
+                  </div>
+                </ng-template>
+              </swiper>
+            </div>
+            <div class="product-details">
+              <h4 [routerLink]="['/product-details', product.id]">{{product.title}}</h4>
+              <p class="hover" [routerLink]="['/product-details', product.id]"
+                *ngIf="product.short_description.length>=100"
+                [innerHTML]="(product.short_description  | slice:0:100) + ' ... '"></p>
+              <p class="hover" [routerLink]="['/product-details', product.id]"
+                *ngIf="product.short_description.length<100" [innerHTML]="product.short_description"></p>
+              <div class="categories-types">
+                <span *ngFor="let categoryTitle of product.categories">{{categoryTitle.title}}</span>
+              </div>
+            </div>
+            <div class="product-coupons">
+              <div *ngIf="product.qty_in_cart == 0">
+                <img src="../../../../assets/images/icons/shopping.png" alt="shopping icon"
+                  (click)="addToCart(product.id , 1) " class="shopping-icon" data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+              </div>
+              <div class="counter-amount" *ngIf="product.qty_in_cart != 0">
+                <button (click)="plusAmount(product.cart_id , index)"><i class="fa-solid fa-plus"></i></button>
+                <input type="text" [(ngModel)]="product.qty_in_cart" readonly>
+                <button (click)="minsAmount(product.cart_id, index)"><i class="fa-solid fa-minus"></i></button>
+              </div>
+
+              <div class="d-flex">
+                <span class="d-block before-disc" *ngIf="product.discount > 0 ">{{product.price}} EGP</span>
+                <span class="d-block"><strong>{{product.price_after_discount}} EGGP</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>
+<app-cart-sidebar></app-cart-sidebar>

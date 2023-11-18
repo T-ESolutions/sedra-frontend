@@ -1,0 +1,319 @@
+<section id="profile">
+  <app-navbar></app-navbar>
+  <div class="container-fluid pb-5">
+    <div class="row py-5 px-3">
+      <h3>حسابك</h3>
+      <p>قم بإدارة حسابك وتغيير كلمة المرور الخاصة بك</p>
+    </div>
+
+    <div class="row my-3 p-4 mb-5">
+      <div class="profile-card p-3 py-3 mb-3">
+        <h5>معلومات عامة</h5>
+        <form [formGroup]="updateForm" (ngSubmit)="submitUpdateForm(updateForm)" class="px-3">
+          <div class="row py-3">
+            <div class="col-md-12">
+              <div class="mb-3">
+                <label for="first-name" class="form-label">الإسم </label>
+                <input type="text" class="form-control" id="first-name" aria-describedby="emailHelp"
+                  formControlName="f_name">
+              </div>
+            </div>
+          </div>
+          <button type="submit" [disabled]="updateForm.invalid">تحديث البيانات</button>
+        </form>
+      </div>
+      <div class="profile-card p-3 py-3 ">
+        <h5>الحماية</h5>
+        <form [formGroup]="emailForm" (ngSubmit)="submitEmailForm(emailForm)" class="px-3 pt-3">
+          <div class="row pt-3">
+            <label for="user-email" class="form-label" class="px-4 py-2">البريد الإلكتروني</label>
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="email" class="form-control mb-3" id="user-email" aria-describedby="emailHelp"
+                    formControlName="email">
+                </div>
+                <div class="col-md-6">
+                  <button class="mb-3" type="submit" [disabled]="emailForm.invalid">إرسال الكود</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <form [formGroup]="phoneForm" (ngSubmit)="submitPhoneForm(phoneForm)" class="px-3 pb-3 ">
+          <div class="row pb-3">
+            <label for="user-phone" class="form-label" class="px-4 py-2">رقم الهاتف</label>
+            <div class="mb-3">
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="phone" class="form-control mb-3" id="user-phone" aria-describedby="emailHelp"
+                    formControlName="phone">
+                </div>
+                <div class="col-md-6">
+                  <button class="mb-3" type="submit" [disabled]="phoneForm.invalid">تغيير رقم الهاتف</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="row row-last">
+          <button type="submit" (click)="updatePassModal()">تغيير كلمة المرور</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- modals  -->
+<!-- verify new email Modal -->
+<div class="modal fade" id="verifyEmailModal" tabindex="-1" aria-labelledby="verifyEmailModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كود الحساب</h3>
+        <h5 class="py-3">أكد كود حسابك اللي هنبعتهولك على
+          الإيميل الجديد</h5>
+        <form [formGroup]="verifyEmailForm" (ngSubmit)="submitVerifyEmailForm(verifyEmailForm)">
+          <div class="group  my-2">
+            <div class="row d-flex justify-content-between  w-100" dir="ltr">
+              <input type="text" autofocus="true" min="0" max="9" maxlength="1" #txt1
+                (keyup)="move($event , '' , txt1 , txt2)" formControlName="code1"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #txt2 (keyup)="move($event , txt1 , txt2 , txt3)"
+                formControlName="code2" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #txt3 (keyup)="move($event , txt2 , txt3 , txt4)"
+                formControlName="code3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #txt4 (keyup)="move($event , txt3 , txt4 , '')"
+                formControlName="code4" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="verifyEmailForm.invalid">تأكيد</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- verify new phone Modal -->
+<div class="modal fade" id="verifyPhoneModal" tabindex="-1" aria-labelledby="verifyPhoneModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كود الحساب</h3>
+        <h5 class="py-3">أكد كود حسابك اللي هنبعتهولك على
+          رقم الهاتف الجديد</h5>
+        <form [formGroup]="verifyPhoneForm" (ngSubmit)="submitVerifyPhoneForm(verifyPhoneForm)">
+          <div class="group  my-2">
+            <div class="row d-flex justify-content-between  w-100" dir="ltr">
+              <input type="text" autofocus="true" min="0" max="9" maxlength="1" #text1
+                (keyup)="move($event , '' , text1 , text2)" formControlName="code1"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text2 (keyup)="move($event , text1 , text2 , text3)"
+                formControlName="code2" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text3 (keyup)="move($event , text2 , text3 , text4)"
+                formControlName="code3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text4 (keyup)="move($event , text3 , text4 , '')"
+                formControlName="code4" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="verifyPhoneForm.invalid">تأكيد</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- update password Modal -->
+<div class="modal fade" id="updatePasswordModal" tabindex="-1" aria-labelledby="updatePasswordModalLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كلمة المرور الجديدة</h3>
+        <h5 class="py-3">ادخل كلمة المرور الجديدة الخاصة بيك</h5>
+
+        <form [formGroup]="passwordForm" (ngSubmit)="submitPasswordForm(passwordForm)">
+          <div class="old-pass d-flex align-items-center">
+            <input type="password" [type]="changeType?'password':'text'" name="password" autocomplete="off"
+              formControlName="old_password" class="form-control text-center ms-3" placeholder="كلمة المرور القديمة ">
+            <!-- to show or hide password -->
+            <span (click)="viewPassword()" id="view-pass"><i
+                [ngClass]="visible?'fa fa-eye-slash':'fa fa-eye'"></i></span>
+          </div>
+          <div class="form-group">
+            <p class="hover text-start" id="forgetBtn">نسيت كلمة المرور ؟</p>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="كلمة المرور الجديدة " formControlName="password" autocomplete="off"
+              class="form-control"
+              [class.is-valid]="passwordForm.get('password')?.valid && passwordForm.get('password')?.touched"
+              [class.is-invalid]="passwordForm.get('password')?.invalid && passwordForm.get('password')?.touched">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="passwordForm.get('password')?.invalid && passwordForm.get('password')?.touched">
+              <p *ngIf="passwordForm.get('password')?.errors?.['required']">لا يجب ان يكون فارغا </p>
+              <p *ngIf="passwordForm.get('password')?.errors?.['minlength']">
+                الحد الادنى لعدد الحروف هو 6 عدد ما تم ادخاله هو {{passwordForm.value.password.length}}</p>
+              <p *ngIf="passwordForm.get('password')?.errors?.['maxlength']">
+                الحد الاقصى لعدد الحروف هو 20 عدد ما تم ادخاله هو {{passwordForm.value.password.length}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="تأكيد كلمة المرور الجديدة" formControlName="password_confirmation"
+              autocomplete="off" class="form-control"
+              [class.is-valid]="passwordForm.get('password_confirmation')?.valid && passwordForm.get('password_confirmation')?.touched"
+              [class.is-invalid]="passwordForm.get('password_confirmation')?.invalid && passwordForm.get('password_confirmation')?.touched">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="passwordForm.get('password_confirmation')?.invalid && passwordForm.get('password_confirmation')?.touched">
+              <p *ngIf="passwordForm.get('password_confirmation')?.errors?.['required']">لا يجب ان يكون فارغا </p>
+              <p *ngIf="passwordForm.get('password_confirmation')?.errors?.['minlength']">
+                الحد الادنى لعدد الحروف هو 6 عدد ما تم ادخاله هو {{passwordForm.value.password_confirmation.length}}</p>
+              <p *ngIf="passwordForm.get('password_confirmation')?.errors?.['maxlength']">
+                الحد الاقصى لعدد الحروف هو 20 عدد ما تم ادخاله هو {{passwordForm.value.password_confirmation.length}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="passwordForm.invalid">تأكيد</button>
+            <!-- [disabled]="forgetPassForm.invalid" -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- forget password Modal -->
+<div class="modal fade" id="forgetPassModal" tabindex="-1" aria-labelledby="forgetPassModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3">
+        <h3>نسيت كلمة السر؟</h3>
+        <h5>اكتب ايميلك وهنبعتلك عليه رابط عشان تغير كلمة السر</h5>
+        <form [formGroup]="forgetPassForm" (ngSubmit)="submitForgetPassForm(forgetPassForm)">
+          <div class="form-group">
+            <label for="Email"> البريد الإلكتروني </label>
+            <input type="email" name="Email" formControlName="email" autocomplete="off"
+              [class.is-valid]="forgetPassForm.get('email')?.valid && forgetPassForm.get('email')?.touched"
+              [class.is-invalid]="forgetPassForm.get('email')?.invalid && forgetPassForm.get('email')?.touched"
+              class="form-control">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="forgetPassForm.get('email')?.invalid && forgetPassForm.get('email')?.touched">
+              <p *ngIf="forgetPassForm.get('email')?.errors?.['required']">يجب إدخال البريد الإلكتروني</p>
+              <p *ngIf="forgetPassForm.get('email')?.errors?.['email']">بريد إلكترونى غير صحيح</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="forgetPassForm.invalid">إرسال الكود</button>
+            <!-- [disabled]="forgetPassForm.invalid" -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- verify forget pass Modal -->
+<div class="modal fade" id="forgetPassVerifyModal" tabindex="-1" aria-labelledby="forgetPassVerifyModalLabel"
+  aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كود الحساب</h3>
+        <h5>أكد كود حسابك اللي هنبعتهولك</h5>
+        <form [formGroup]="verifyForgetPassForm" (ngSubmit)="submitVerifyForgetPassForm(verifyForgetPassForm)">
+          <div class="group  my-2">
+            <div class="row d-flex justify-content-between  w-100" dir="ltr">
+              <input type="text" autofocus="true" min="0" max="9" maxlength="1" #text1
+                (keyup)="move($event , '' , text1 , text2)" formControlName="code1" autofocus
+                oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text2 (keyup)="move($event , text1 , text2 , text3)"
+                formControlName="code2" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text3 (keyup)="move($event , text2 , text3 , text4)"
+                formControlName="code3" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+              <input type="text" min="0" max="9" maxlength="1" #text4 (keyup)="move($event , text3 , text4 , '')"
+                formControlName="code4" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+            </div>
+          </div>
+          <p class="resend-code" (click)="resendCode()">إعادة ارسال الكود</p>
+          <div class="form-group">
+            <button type="submit" [disabled]="verifyForgetPassForm.invalid">تأكيد</button>
+            <!-- [disabled]="forgetPassForm.invalid" -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- change password Modal -->
+<div class="modal fade" id="changePassModal" tabindex="-1" aria-labelledby="changePassModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img src="../../../../assets/images/icons/exit-icon.png" alt="exit-icon" class="exit-icon"
+          data-bs-dismiss="modal" aria-label="Close">
+      </div>
+      <div class="modal-body pt-3 pb-2 mt-3">
+        <h3>تأكيد كلمة المرور الجديدة</h3>
+        <h5>ادخل كلمة المرور الجديدة الخاصة بيك</h5>
+        <form [formGroup]="changePassForm" (ngSubmit)="submitChangePassForm(changePassForm)">
+          <div class="form-group">
+            <input type="text" placeholder="كلمة المرور الجديدة " formControlName="password" autocomplete="off"
+              class="form-control"
+              [class.is-valid]="changePassForm.get('password')?.valid && changePassForm.get('password')?.touched"
+              [class.is-invalid]="changePassForm.get('password')?.invalid && changePassForm.get('password')?.touched">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="changePassForm.get('password')?.invalid && changePassForm.get('password')?.touched">
+              <p *ngIf="changePassForm.get('password')?.errors?.['required']">لا يجب ان يكون فارغا </p>
+              <p *ngIf="changePassForm.get('password')?.errors?.['minlength']">
+                الحد الادنى لعدد الحروف هو 6 عدد ما تم ادخاله هو {{changePassForm.value.password.length}}</p>
+              <p *ngIf="changePassForm.get('password')?.errors?.['maxlength']">
+                الحد الاقصى لعدد الحروف هو 20 عدد ما تم ادخاله هو {{changePassForm.value.password.length}}</p>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="تأكيد كلمة المرور الجديدة" formControlName="password_confirmation"
+              autocomplete="off" class="form-control"
+              [class.is-valid]="changePassForm.get('password_confirmation')?.valid && changePassForm.get('password_confirmation')?.touched"
+              [class.is-invalid]="changePassForm.get('password_confirmation')?.invalid && changePassForm.get('password_confirmation')?.touched">
+            <div class="alert alert-danger mt-2 p-2"
+              *ngIf="changePassForm.get('password_confirmation')?.invalid && changePassForm.get('password_confirmation')?.touched">
+              <p *ngIf="changePassForm.get('password_confirmation')?.errors?.['required']">لا يجب ان يكون فارغا </p>
+              <p *ngIf="changePassForm.get('password_confirmation')?.errors?.['minlength']">
+                الحد الادنى لعدد الحروف هو 6 عدد ما تم ادخاله هو {{changePassForm.value.password_confirmation.length}}
+              </p>
+              <p *ngIf="changePassForm.get('password_confirmation')?.errors?.['maxlength']">
+                الحد الاقصى لعدد الحروف هو 20 عدد ما تم ادخاله هو {{changePassForm.value.password_confirmation.length}}
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="changePassForm.invalid">تأكيد</button>
+            <!-- [disabled]="forgetPassForm.invalid" -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
