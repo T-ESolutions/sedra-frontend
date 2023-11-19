@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  baseUrl: any = 'https://80fekra.limazola.com/api/';
+  baseUrl: any = 'https://sedra.limazola.com/api/';
   visitor_id: any;
   constructor(private _Router: Router, private _http: HttpClient) {}
 
