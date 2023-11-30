@@ -10,7 +10,7 @@
 
 // begin:: scroll bar styles
 :root {
-  --scrollBarBg: #259ED3;
+  --scrollBarBg: #D17A56;
 }
 
 ::-webkit-scrollbar {
@@ -87,7 +87,7 @@ a {
     padding: 10px 5px;
     border: none;
     outline: none;
-    background-color: #29A4DB;
+    background-color: #D17A56;
     color: #fff;
     font-weight: bold;
     transition: all 0.4s;
@@ -96,7 +96,7 @@ a {
 
     &:hover {
       cursor: pointer;
-      box-shadow: 0px 0px 10px rgba(41, 164, 219, 0.8);
+      box-shadow: 0px 0px 10px rgb(246, 144, 100);
     }
   }
 
@@ -105,7 +105,7 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid #3D9CDF;
+    border: 2px solid #D17A56;
     border-radius: 5px;
     // overflow: hidden;
 
@@ -113,7 +113,7 @@ a {
       border: none;
       text-align: center;
       font-weight: bold;
-      color: #3D9CDF;
+      color: #D17A56;
       width: 50px;
       height: 100%;
       background-color: transparent;
@@ -133,7 +133,7 @@ a {
       padding: 5px;
       border: none;
       outline: none;
-      background-color: #29A4DB;
+      background-color: #D17A56;
       color: #fff;
       font-weight: bold;
       transition: all 0.4s;
@@ -141,7 +141,7 @@ a {
 
       &:hover {
         cursor: pointer;
-        box-shadow: 0px 0px 20px rgba(41, 164, 219, 0.8);
+        box-shadow: 0px 0px 20px rgb(246, 144, 100);
       }
     }
   }

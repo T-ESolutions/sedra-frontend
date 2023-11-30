@@ -111,7 +111,7 @@
             border-radius: 10px;
 
             span:first-of-type {
-              color: #29A4DB;
+              color: #D17A56;
               font-weight: bold;
               font-size: 22px;
               margin: 0 10px;
@@ -143,7 +143,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-color: #29A4DB;
+                background-color: #D17A56;
                 border-radius: 50%;
                 margin: 10px;
                 transition: all 0.3s;
@@ -153,7 +153,7 @@
                 }
 
                 &:hover {
-                  box-shadow: 0px 0px 10px rgba(41, 164, 219, 0.8);
+                  box-shadow: 0px 0px 10px rgb(246, 144, 100);
                 }
               }
 
@@ -185,7 +185,7 @@
             display: flex;
 
             button {
-              background: #29a4db;
+              background: #D17A56;
               padding: 10px;
               border: none;
               outline: none;
@@ -210,7 +210,7 @@
               }
 
               &:hover {
-                box-shadow: 0px 0px 10px rgba(41, 164, 219, 0.8);
+                box-shadow: 0px 0px 10px rgb(246, 144, 100)
               }
             }
           }
@@ -309,7 +309,7 @@
               .col-6:nth-of-type(2) {
                 button {
                   color: #fff;
-                  background-color: #29A4DB;
+                  background-color: #D17A56;
 
                   &:hover {
                     box-shadow: 0px 4px 15px rgb(0 0 0 / 20%);
@@ -396,8 +396,8 @@
 
 
               p {
-                // border-bottom: 4px solid #29A4DB;
-                color: #29A4DB;
+                // border-bottom: 4px solid #D17A56;
+                color: #D17A56;
                 font-weight: bold;
                 position: relative;
 
@@ -408,7 +408,7 @@
                 content: "";
                 width: 80%;
                 height: 4px;
-                background-color: #29A4DB;
+                background-color: #D17A56;
                 bottom: 0;
                 left: 50%;
                 transform: translateX(-50%);
@@ -561,7 +561,7 @@
                     }
 
                     button {
-                      background: #29a4db;
+                      background: #D17A56;
                       padding: 10px 20px;
                       border: none;
                       outline: none;
@@ -573,7 +573,7 @@
                       transition: all 0.3s;
 
                       &:hover {
-                        box-shadow: 0px 0px 10px rgba(41, 164, 219, 0.8);
+                        box-shadow: 0px 0px 10px rgb(246, 144, 100);
                       }
 
                     }
@@ -753,7 +753,7 @@
               padding: 20px;
 
               button {
-                background-color: #29A4DB;
+                background-color: #D17A56;
                 color: #fff;
                 font-weight: bold;
                 font-size: 20px;
@@ -896,7 +896,7 @@
               padding: 10px;
 
               h4 {
-                color: #29A4DB;
+                color: #D17A56;
                 font-size: 30px;
                 font-weight: 500;
                 height: 75px;
@@ -921,7 +921,7 @@
 
               span {
                 font-size: 18px;
-                color: #29A4DB;
+                color: #D17A56;
                 margin-left: 15px;
               }
             }

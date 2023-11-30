@@ -1,6 +1,6 @@
 // begin:: navbar
 nav {
-  background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+  background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
   direction: ltr;
 
   #canvas {
@@ -146,7 +146,7 @@ nav {
   right: -100%;
   bottom: 0;
   width: 200px;
-  background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+  background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
   z-index: 2;
   transition: all 1s;
 
@@ -155,7 +155,7 @@ nav {
       padding: 5px;
 
       i {
-        color: #29A4DB;
+        color: #D17A56;
         font-weight: bold;
         font-size: 22px;
         transition: all 0.3s;
@@ -272,7 +272,7 @@ nav {
           font-family: "cairo";
 
           span {
-            color: #29A4DB;
+            color: #D17A56;
             padding: 0 10px;
             cursor: pointer;
           }
@@ -393,7 +393,7 @@ nav {
 
             a {
               p {
-                color: #29A4DB;
+                color: #D17A56;
                 font-family: "cairo";
                 font-size: 18px;
 
@@ -416,7 +416,7 @@ nav {
               background-color: transparent;
               border: none;
               outline: none;
-              color: #29A4DB;
+              color: #D17A56;
               font-size: 25px;
               font-family: "cairo";
               font-weight: 600;
@@ -465,7 +465,7 @@ nav {
           font-family: "cairo";
 
           span {
-            color: #29A4DB;
+            color: #D17A56;
             padding: 0 10px;
             cursor: pointer;
           }
@@ -521,7 +521,7 @@ nav {
             width: fit-content;
             margin: auto;
             &:hover {
-              color: #29A4DB;
+              color: #D17A56;
               cursor: pointer;
             }
           }

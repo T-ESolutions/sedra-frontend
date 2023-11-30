@@ -16,7 +16,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      border-left: 1px solid rgb(0, 0, 0, 0.5);
+      // border-left: 1px solid rgb(0, 0, 0, 0.5);
 
       p {
         margin-top: 0;
@@ -24,7 +24,7 @@
         height: 100%;
         text-align: center;
         padding: 15px 10px;
-        color: #1B75B6;
+        // color: #D17A56;
         font-weight: 700;
         font-size: 30px;
         position: relative;
@@ -40,7 +40,7 @@
           height: 100%;
           left: 110%;
           top: 0;
-          background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+          background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
           ;
           transition: all 1s;
           z-index: -1;
@@ -59,7 +59,7 @@
     ul {
       flex-grow: 1;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       margin-bottom: 0;
       padding: 0 15px;
@@ -92,7 +92,7 @@
           width: 100%;
           height: 100%;
           left: 100%;
-          background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+          background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
           transition: all 1s;
           z-index: -1;
         }
@@ -107,14 +107,14 @@
           width: 100%;
           height: 100%;
           left: 100%;
-          background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+          background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
           transition: all 1s;
           z-index: -1;
         }
       }
 
       li.active {
-        background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+        background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
         color: #fff;
       }
 
@@ -128,7 +128,7 @@
     }
 
     .activated {
-      background: linear-gradient(to right, rgb(222, 237, 243), rgb(37, 158, 211));
+      background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
       color: #fff;
     }
 
@@ -182,7 +182,7 @@
     .row {
       .title {
         h2 {
-          color: #3D9CDF;
+          color: #D17A56;
           font-weight: bold;
           font-size: 60px;
           margin: 0;
@@ -244,7 +244,7 @@
               padding: 10px;
 
               h4 {
-                color: #29A4DB;
+                color: #D17A56;
                 font-size: 30px;
                 font-weight: 500;
                 line-height: 37.5px;
@@ -272,7 +272,7 @@
 
                 span {
                   font-size: 18px;
-                  color: #29A4DB;
+                  color: #D17A56;
                   margin-left: 10px;
                 }
 
