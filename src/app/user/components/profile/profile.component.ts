@@ -66,6 +66,7 @@ export class ProfileComponent {
           if (response.status == 200) {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'نجاح !!',
               text: response.msg,
               icon: 'success',
@@ -77,6 +78,7 @@ export class ProfileComponent {
           } else {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
@@ -112,6 +114,7 @@ export class ProfileComponent {
           } else {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
@@ -123,6 +126,7 @@ export class ProfileComponent {
           if (error.status == 422) {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: 'قيمة حقل البريد الالكتروني مُستخدمة من قبل.',
               icon: 'error',
@@ -162,6 +166,7 @@ export class ProfileComponent {
           } else {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
@@ -173,6 +178,7 @@ export class ProfileComponent {
           if (error.status == 422) {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: 'قيمة حقل رقم الجوال مُستخدمة من قبل.',
               icon: 'error',
@@ -213,6 +219,7 @@ export class ProfileComponent {
     } else if (passwordForm.value.old_password != this.userPass) {
       this.spinner.hide();
       Swal.fire({
+        confirmButtonColor: '#7A9987',
         title: 'موافق !!',
         text: 'كلمة المرور القديمة خطأ !!',
         icon: 'success',
@@ -225,6 +232,7 @@ export class ProfileComponent {
       ) {
         this.spinner.hide();
         Swal.fire({
+          confirmButtonColor: '#7A9987',
           title: 'خطأ !!',
           text: 'كلمات المرور الجديدة يجب ان تكون متطابقة ',
           icon: 'error',
@@ -239,6 +247,7 @@ export class ProfileComponent {
               $('#updatePasswordModal').modal('hide');
               this.passwordForm.reset();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'موافق !!',
                 text: response.msg,
                 icon: 'success',
@@ -247,6 +256,7 @@ export class ProfileComponent {
             } else {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: 'خطأ غير معروف من الخادم !!',
                 icon: 'error',
@@ -292,6 +302,7 @@ export class ProfileComponent {
             this.verifyEmailForm.reset();
             $('#verifyEmailModal').modal('hide');
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'نجاح !!',
               text: response.msg,
               icon: 'success',
@@ -304,6 +315,7 @@ export class ProfileComponent {
             this.verifyEmailForm.reset();
             $('#verifyEmailModal').modal('hide');
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
@@ -350,6 +362,7 @@ export class ProfileComponent {
             this.verifyPhoneForm.reset();
             $('#verifyPhoneModal').modal('hide');
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'نجاح !!',
               text: response.msg,
               icon: 'success',
@@ -362,6 +375,7 @@ export class ProfileComponent {
             this.verifyPhoneForm.reset();
             $('#verifyPhoneModal').modal('hide');
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
@@ -415,6 +429,7 @@ export class ProfileComponent {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: 'خطأ غير معروف من الخادم !!',
             icon: 'error',
@@ -458,6 +473,7 @@ export class ProfileComponent {
             $('#forgetPassModal').modal('hide');
             this.emailToForget = forgetPassForm.value.email;
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'نجاح !!',
               text: ` تم إرسال كود التحقق الى البريد الإلكترونى :: ${forgetPassForm.value.email}`,
               icon: 'success',
@@ -468,6 +484,7 @@ export class ProfileComponent {
           } else {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
@@ -479,6 +496,7 @@ export class ProfileComponent {
           if (error.status == 422) {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: error.error.message,
               icon: 'error',
@@ -523,6 +541,7 @@ export class ProfileComponent {
             // localStorage.setItem("jwt" , response.data.jwt);
             localStorage.setItem('userData', JSON.stringify(response.data));
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'نجاح !!',
               text: response.msg,
               icon: 'success',
@@ -534,6 +553,7 @@ export class ProfileComponent {
             this.spinner.hide();
             this.verifyForgetPassForm.reset();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
@@ -559,6 +579,7 @@ export class ProfileComponent {
     this._UserService.resendCode(this.resendForm).subscribe((response) => {
       this.spinner.hide();
       Swal.fire({
+        confirmButtonColor: '#7A9987',
         title: 'نجاح !!',
         text: ` تم إرسال كود التحقق الى البريد الإلكترونى :: ${this.resendForm.email}`,
         icon: 'success',
@@ -595,6 +616,7 @@ export class ProfileComponent {
       ) {
         this.spinner.hide();
         Swal.fire({
+          confirmButtonColor: '#7A9987',
           title: 'خطأ !!',
           text: 'كلمات المرور الجديدة يجب ان تكون متطابقة ',
           icon: 'error',
@@ -610,6 +632,7 @@ export class ProfileComponent {
               $('#changePassModal').modal('hide');
               this.changePassForm.reset();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'موافق !!',
                 text: 'تم تغيير كلمة المرور بنجاح.',
                 icon: 'success',
@@ -618,6 +641,7 @@ export class ProfileComponent {
             } else {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: response.msg,
                 icon: 'error',

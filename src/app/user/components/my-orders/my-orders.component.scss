@@ -22,7 +22,7 @@
     .row {
       .no-orders {
         background-color: #09c;
-        background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
+        background: linear-gradient(to right, rgb(222, 237, 243), #5a7967);
         border-radius: 20px;
         width: fit-content;
         margin: auto;
@@ -49,11 +49,11 @@
             font-weight: 600;
             color: #000;
             border-radius: 3px;
-            border: 2px solid #D17A56;
+            border: 2px solid #7A9987;
           }
 
           .active {
-            background-color: #D17A56;
+            background-color: #7A9987;
             color: #fff;
           }
         }

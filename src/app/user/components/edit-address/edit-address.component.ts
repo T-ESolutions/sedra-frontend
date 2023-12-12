@@ -67,6 +67,7 @@ export class EditAddressComponent implements OnInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -107,6 +108,7 @@ export class EditAddressComponent implements OnInit {
           if (response.status == 200) {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'نجاح !!',
               text: response.msg,
               icon: 'success',
@@ -118,6 +120,7 @@ export class EditAddressComponent implements OnInit {
           } else {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',

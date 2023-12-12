@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate {
             text: "يجب تسجيل الدخول اولا ",
             icon: 'warning',
             confirmButtonText: 'موافق',
+            confirmButtonColor: "#7A9987",
           }).then((result) => {
             $('#loginModal').modal('show');
           })

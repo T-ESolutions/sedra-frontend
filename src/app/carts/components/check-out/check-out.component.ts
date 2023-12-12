@@ -154,6 +154,7 @@ export class CheckOutComponent implements OnInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -192,6 +193,7 @@ export class CheckOutComponent implements OnInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -209,13 +211,14 @@ export class CheckOutComponent implements OnInit {
     if (this.checkLogin == 'true') {
       if (this.basicAddress.id == 0) {
         Swal.fire({
+          confirmButtonColor: '#7A9987',
           title: 'تحذير !!',
           text: 'يجب إضافة عنوان الشحن اولآ قبل تأكيد الطلب',
           icon: 'warning',
           confirmButtonText: 'موافق',
         });
       } else {
-        if (this.coupon_code == null || this.coupon_code == "null") {
+        if (this.coupon_code == null || this.coupon_code == 'null') {
           this.spinner.show();
           this._CartsService
             .placeOrderWithoutCopoun(
@@ -229,6 +232,7 @@ export class CheckOutComponent implements OnInit {
                   this.spinner.hide();
                   let order_id = response.data.order_id;
                   Swal.fire({
+                    confirmButtonColor: '#7A9987',
                     title: 'نجاح !!',
                     text: `تم الطلب بنجاح، كود طلبك ${order_id}
                   يتم توصيل الطلب خلال 1-6 أيام، في حالة وجود أي مشكلة، برجاء التواصل مع الرقم التالي 01033334454 (9ص:5م).
@@ -238,13 +242,14 @@ export class CheckOutComponent implements OnInit {
                     confirmButtonText: 'موافق',
                   }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
-                    sessionStorage.removeItem("copoun")
+                    sessionStorage.removeItem('copoun');
                     this._Router.navigate(['/my-orders']);
                     this.getProductOnCart();
                   });
                 } else {
                   this.spinner.hide();
                   Swal.fire({
+                    confirmButtonColor: '#7A9987',
                     title: 'خطأ !!',
                     text: response.msg,
                     icon: 'error',
@@ -271,6 +276,7 @@ export class CheckOutComponent implements OnInit {
                   this.spinner.hide();
                   let order_id = response.data.order_id;
                   Swal.fire({
+                    confirmButtonColor: '#7A9987',
                     title: 'نجاح !!',
                     text: `تم الطلب بنجاح، كود طلبك ${order_id}
                   يتم توصيل الطلب خلال 1-6 أيام، في حالة وجود أي مشكلة، برجاء التواصل مع الرقم التالي 01033334454 (9ص:5م).
@@ -280,13 +286,14 @@ export class CheckOutComponent implements OnInit {
                     confirmButtonText: 'موافق',
                   }).then((result) => {
                     /* Read more about isConfirmed, isDenied below */
-                    sessionStorage.removeItem("copoun")
+                    sessionStorage.removeItem('copoun');
                     this._Router.navigate(['/my-orders']);
                     this.getProductOnCart();
                   });
                 } else {
                   this.spinner.hide();
                   Swal.fire({
+                    confirmButtonColor: '#7A9987',
                     title: 'خطأ !!',
                     text: response.msg,
                     icon: 'error',
@@ -335,10 +342,10 @@ export class CheckOutComponent implements OnInit {
 
   deleteAddress(addressId: any) {
     Swal.fire({
+      confirmButtonColor: '#7A9987',
       title: 'هل أنت متأكد أنك تريد حذف العنوان؟',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'نعم , أنا متأكد  ',
       cancelButtonText: 'إلغاء',
@@ -350,6 +357,7 @@ export class CheckOutComponent implements OnInit {
             if (response.status == 200) {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'نجاح !!',
                 text: response.msg,
                 icon: 'success',
@@ -360,6 +368,7 @@ export class CheckOutComponent implements OnInit {
             } else {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: ` ${response.message}  !! `,
                 icon: 'error',
@@ -371,6 +380,7 @@ export class CheckOutComponent implements OnInit {
             this.spinner.hide();
             if (error.status == 422) {
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: error.error.message,
                 icon: 'error',
@@ -435,6 +445,7 @@ export class CheckOutComponent implements OnInit {
   submitVisitorForm(visitorForm: FormGroup) {
     if (visitorForm.value.country_id == null) {
       Swal.fire({
+        confirmButtonColor: '#7A9987',
         title: 'تحذير !!',
         text: ' يجب اختيار المحافظة أولا ',
         icon: 'warning',
@@ -448,6 +459,7 @@ export class CheckOutComponent implements OnInit {
       if (visitorForm.invalid) {
         this.spinner.hide();
         Swal.fire({
+          confirmButtonColor: '#7A9987',
           title: 'تحذير !!',
           text: 'يجب ملىء الفورم كاملة ',
           icon: 'warning',
@@ -479,6 +491,7 @@ export class CheckOutComponent implements OnInit {
               this.spinner.hide();
               let order_id = response.data.order_id;
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'نجاح !!',
                 text: `تم الطلب بنجاح، كود طلبك ${order_id}
                 يتم توصيل الطلب خلال 1-6 أيام، في حالة وجود أي مشكلة، برجاء التواصل مع الرقم التالي 01033334454 (9ص:5م).
@@ -489,13 +502,14 @@ export class CheckOutComponent implements OnInit {
               }).then((result) => {
                 /* Read more about isConfirmed, isDenied below */
                 this.spinner.hide();
-                sessionStorage.removeItem("copoun")
+                sessionStorage.removeItem('copoun');
                 this.getProductOnCart();
                 this._Router.navigate(['/home']);
               });
             } else {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: response.msg,
                 icon: 'error',

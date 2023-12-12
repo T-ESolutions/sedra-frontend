@@ -51,6 +51,7 @@ export class OrderDetailsComponent {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -74,6 +75,7 @@ export class OrderDetailsComponent {
           $('#orderBtns').addClass('d-none');
 
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'نجاح !!',
             text: ' تم إلغاء الطلب بنجاح  ',
             icon: 'success',
@@ -84,6 +86,7 @@ export class OrderDetailsComponent {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -116,6 +119,7 @@ export class OrderDetailsComponent {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -148,6 +152,7 @@ export class OrderDetailsComponent {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -163,10 +168,10 @@ export class OrderDetailsComponent {
 
   deleteAddress(addressId: any) {
     Swal.fire({
+      confirmButtonColor: '#7A9987',
       title: 'هل أنت متأكد أنك تريد حذف العنوان؟',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'نعم , أنا متأكد  ',
       cancelButtonText: 'إلغاء',
@@ -178,6 +183,7 @@ export class OrderDetailsComponent {
             if (response.status == 200) {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'نجاح !!',
                 text: response.msg,
                 icon: 'success',
@@ -188,6 +194,7 @@ export class OrderDetailsComponent {
             } else {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: ` ${response.message}  !! `,
                 icon: 'error',
@@ -199,6 +206,7 @@ export class OrderDetailsComponent {
             this.spinner.hide();
             if (error.status == 422) {
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: error.error.message,
                 icon: 'error',

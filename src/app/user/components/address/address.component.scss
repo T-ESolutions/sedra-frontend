@@ -45,13 +45,13 @@
       border-radius: 6px;
       border: none;
       outline: none;
-      background-color: #D17A56;
+      background-color: #7A9987;
       padding: 6px;
       transition: all 0.4s;
 
       &:hover {
         cursor: pointer;
-        box-shadow: 0px 0px 10px rgb(246, 144, 100);
+        box-shadow: 0px 0px 10px rgb(99 123 107 / 89%);
       }
     }
 
@@ -172,7 +172,7 @@
 
             button:first-of-type {
               background-color: transparent;
-              border: 2px solid #D17A56;
+              border: 2px solid #7A9987;
               color: #000;
               font-weight: 600;
               width: 80px;
@@ -181,12 +181,12 @@
 
               &:hover {
                 cursor: pointer;
-                box-shadow: 0px 0px 10px rgb(246, 144, 100);
+                box-shadow: 0px 0px 10px rgb(99 123 107 / 89%);
               }
             }
 
             button:nth-of-type(2) {
-              background-color: #D17A56;
+              background-color: #7A9987;
               width: 175px;
               margin: 0 20px;
               border-radius: 3px;
@@ -194,7 +194,7 @@
 
               &:hover {
                 cursor: pointer;
-                box-shadow: 0px 0px 10px rgb(246, 144, 100);
+                box-shadow: 0px 0px 10px rgb(99 123 107 / 89%);
               }
             }
           }

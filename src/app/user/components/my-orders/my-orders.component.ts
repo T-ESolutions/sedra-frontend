@@ -34,6 +34,7 @@ export class MyOrdersComponent {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -55,6 +56,7 @@ export class MyOrdersComponent {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',

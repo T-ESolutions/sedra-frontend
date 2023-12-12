@@ -85,7 +85,7 @@
                     left: 100%;
                     top: 0;
                     bottom: 0;
-                    background: linear-gradient(to right, rgb(222, 237, 243), rgb(209 122 86));
+                    background: linear-gradient(to right, rgb(222, 237, 243), #5a7967);
                     transition: all 1s;
                     z-index: -1;
                   }
@@ -144,7 +144,7 @@
 
                         button:first-of-type {
                           background-color: transparent;
-                          border: 2px solid #D17A56;
+                          border: 2px solid #7A9987;
                           color: #000;
                           font-weight: 600;
                           width: 80px;
@@ -153,12 +153,12 @@
 
                           &:hover {
                             cursor: pointer;
-                            box-shadow: 0px 0px 10px rgb(246, 144, 100);
+                            box-shadow: 0px 0px 10px rgb(99 123 107 / 89%);
                           }
                         }
 
                         button:nth-of-type(2) {
-                          background-color: #D17A56;
+                          background-color: #7A9987;
                           width: 175px;
                           margin: 0 20px;
                           border-radius: 3px;
@@ -166,7 +166,7 @@
 
                           &:hover {
                             cursor: pointer;
-                            box-shadow: 0px 0px 10px rgb(246, 144, 100);
+                            box-shadow: 0px 0px 10px rgb(99 123 107 / 89%);
                           }
                         }
                       }
@@ -181,7 +181,7 @@
         .col-md-6 {
           .mb-3 {
             label {
-              color: #D17A56;
+              color: #7A9987;
             }
           }
 
@@ -202,7 +202,7 @@
               left: 0;
               width: 60px;
               height: 100%;
-              background-color: #D17A56;
+              background-color: #7A9987;
               border-radius: 10px;
               text-align: center;
               display: flex;
@@ -216,7 +216,7 @@
           .mb-3:last-of-type {
             direction: ltr;
             button {
-              background-color: #D17A56;
+              background-color: #7A9987;
               color: #fff;
               font-weight: 600;
               width: 200px;
@@ -229,7 +229,7 @@
 
               &:hover {
                 cursor: pointer;
-                box-shadow: 0px 0px 10px rgb(246, 144, 100);
+                box-shadow: 0px 0px 10px rgb(99 123 107 / 89%);
               }
 
             }
@@ -238,13 +238,13 @@
       }
 
       input {
-        border: 2px solid #D17A56;
+        border: 2px solid #7A9987;
         border-radius: 5px;
         padding: 8px ;
       }
 
       select {
-        border: 2px solid #D17A56;
+        border: 2px solid #7A9987;
         border-radius: 5px;
       }
     }

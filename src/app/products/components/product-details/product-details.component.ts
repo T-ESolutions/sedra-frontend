@@ -137,6 +137,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -162,6 +163,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -199,6 +201,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -214,6 +217,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   addToCartBeforeLogin() {
     Swal.fire({
+      confirmButtonColor: '#7A9987',
       title: 'خطأ !!',
       text: 'يجب تسجيل الدخول اولا ',
       icon: 'warning',
@@ -241,6 +245,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       let check = sessionStorage.getItem('checkLogin');
       if (check != 'true') {
         Swal.fire({
+          confirmButtonColor: '#7A9987',
           title: 'خطأ !!',
           text: 'يجب تسجيل الدخول اولا ',
           icon: 'warning',
@@ -255,6 +260,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
             if (response.status == 200) {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'نجاح !!',
                 text: response.msg,
                 icon: 'success',
@@ -263,6 +269,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
             } else {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: response.msg,
                 icon: 'error',
@@ -274,6 +281,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
             if (error.status == 401) {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: 'لم يتم اضافة التقيم - تم التقييم من قبل بالفعل',
                 icon: 'error',
@@ -295,6 +303,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     this.currentRoute = window.location.href;
     navigator.clipboard.writeText(this.currentRoute);
     Swal.fire({
+      confirmButtonColor: '#7A9987',
       title: 'نجاح !!',
       text: 'تم نسخ الرابط بنجاح  ',
       icon: 'success',
@@ -320,6 +329,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -347,6 +357,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',

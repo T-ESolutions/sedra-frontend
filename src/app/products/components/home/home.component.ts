@@ -102,6 +102,7 @@ export class HomeComponent implements OnInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: 'خطأ غير معروف من الخادم !!',
             icon: 'error',
@@ -147,6 +148,7 @@ export class HomeComponent implements OnInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -172,6 +174,7 @@ export class HomeComponent implements OnInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',

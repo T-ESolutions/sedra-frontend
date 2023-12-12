@@ -58,14 +58,14 @@
             border: none;
             outline: none;
             margin: 0 10px;
-            background-color: #D17A56;
+            background-color: #7A9987;
             color: #fff;
             transition: all 0.4s;
             text-align: center;
 
             &:hover {
               cursor: pointer;
-              box-shadow: 0px 0px 10px rgb(246, 144, 100);
+              box-shadow: 0px 0px 10px rgb(99 123 107 / 89%);
             }
           }
         }
@@ -178,7 +178,7 @@
           font-family: "cairo";
 
           span {
-            color: #D17A56;
+            color: #7A9987;
             padding: 0 10px;
 
             &:hover {
@@ -291,7 +291,7 @@
 
             a {
               p {
-                color: #D17A56;
+                color: #7A9987;
                 font-family: "cairo";
                 font-size: 18px;
 
@@ -314,7 +314,7 @@
               background-color: transparent;
               border: none;
               outline: none;
-              color: #D17A56;
+              color: #7A9987;
               font-size: 25px;
               font-family: "cairo";
               font-weight: 600;

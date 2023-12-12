@@ -82,6 +82,7 @@ export class AddressComponent implements OnInit {
         } else {
           this.spinner.hide();
           Swal.fire({
+            confirmButtonColor: '#7A9987',
             title: 'خطأ !!',
             text: response.msg,
             icon: 'error',
@@ -97,10 +98,10 @@ export class AddressComponent implements OnInit {
 
   deleteAddress(addressId: any) {
     Swal.fire({
+      confirmButtonColor: '#7A9987',
       title: 'هل أنت متأكد أنك تريد حذف العنوان؟',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'نعم , أنا متأكد  ',
       cancelButtonText: 'إلغاء',
@@ -112,6 +113,7 @@ export class AddressComponent implements OnInit {
             if (response.status == 200) {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'نجاح !!',
                 text: response.msg,
                 icon: 'success',
@@ -122,6 +124,7 @@ export class AddressComponent implements OnInit {
             } else {
               this.spinner.hide();
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: ` ${response.message}  !! `,
                 icon: 'error',
@@ -133,6 +136,7 @@ export class AddressComponent implements OnInit {
             this.spinner.hide();
             if (error.status == 422) {
               Swal.fire({
+                confirmButtonColor: '#7A9987',
                 title: 'خطأ !!',
                 text: error.error.message,
                 icon: 'error',
@@ -143,6 +147,7 @@ export class AddressComponent implements OnInit {
               });
             } else {
               // Swal.fire({
+              // confirmButtonColor: "#7A9987",
               //   title: 'خطأ !!',
               //   text: 'خطأ غير معروف من الخادم !!',
               //   icon: 'error',
@@ -197,6 +202,7 @@ export class AddressComponent implements OnInit {
             this.addAddressForm.reset();
             $('#confirm-add-location-modal').modal('hide');
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'نجاح !!',
               text: 'تم إضافة عنوان جديد',
               icon: 'success',
@@ -208,6 +214,7 @@ export class AddressComponent implements OnInit {
           } else {
             this.spinner.hide();
             Swal.fire({
+              confirmButtonColor: '#7A9987',
               title: 'خطأ !!',
               text: response.msg,
               icon: 'error',
